@@ -1,0 +1,33 @@
+{
+  "name": "@design-system/core",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "storybook": "cd ../.. && npm run storybook",
+    "build-storybook": "cd ../.. && npm run build-storybook"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^7.6.17",
+    "@storybook/addon-docs": "^7.6.17",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/blocks": "^7.6.17",
+    "@storybook/react": "^7.6.17",
+    "@storybook/react-webpack5": "^7.6.17",
+    "@storybook/test": "^7.6.17",
+    "@types/react": "^18.2.48",
+    "@types/react-dom": "^18.2.18",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  }
+}
+

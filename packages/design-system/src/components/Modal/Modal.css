@@ -1,0 +1,106 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--spacing-4, 1rem);
+}
+
+.modal {
+  background-color: var(--color-background-default, #ffffff);
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  width: 100%;
+}
+
+.modal--sm {
+  max-width: 24rem; /* 384px */
+}
+
+.modal--md {
+  max-width: 32rem; /* 512px */
+}
+
+.modal--lg {
+  max-width: 48rem; /* 768px */
+}
+
+.modal--full {
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-4, 1rem) var(--spacing-6, 1.5rem);
+  border-bottom: 1px solid var(--color-border-default, #e5e5e5);
+}
+
+.modal-title {
+  margin: 0;
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-text-primary, #171717);
+  line-height: var(--line-height-tight, 1.25);
+}
+
+.modal-close {
+  margin-left: var(--spacing-4, 1rem);
+  font-size: var(--font-size-2xl, 1.5rem);
+  line-height: 1;
+  padding: var(--spacing-1, 0.25rem);
+  min-width: auto;
+  width: 2rem;
+  height: 2rem;
+}
+
+.modal-content {
+  padding: var(--spacing-6, 1.5rem);
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Focus styles */
+.modal:focus {
+  outline: none;
+}
+
+.modal:focus-visible {
+  outline: 2px solid var(--color-border-focus, #0ea5e9);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .modal {
+    border: 2px solid var(--color-text-primary, #171717);
+  }
+  
+  .modal:focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop {
+    transition: none;
+  }
+}
+

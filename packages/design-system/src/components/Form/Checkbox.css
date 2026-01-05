@@ -1,0 +1,46 @@
+.form-checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2, 0.5rem);
+}
+
+.form-checkbox-input-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-2, 0.5rem);
+}
+
+.form-checkbox {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+  cursor: pointer;
+  accent-color: var(--color-primary-500, #0ea5e9);
+  flex-shrink: 0;
+}
+
+.form-checkbox:focus-visible {
+  outline: 2px solid var(--color-border-focus, #0ea5e9);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.form-checkbox-label {
+  font-size: var(--font-size-base, 1rem);
+  line-height: var(--line-height-normal, 1.5);
+  color: var(--color-text-primary, #171717);
+  cursor: pointer;
+  user-select: none;
+}
+
+.form-checkbox--error {
+  accent-color: var(--color-error-500, #ef4444);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .form-checkbox:focus-visible {
+    outline-width: 3px;
+  }
+}
+

@@ -1,0 +1,70 @@
+/* Link component styles */
+.link {
+  color: var(--color-primary-600, #0284c7);
+  text-decoration: underline;
+  text-underline-offset: 0.125em;
+  transition: color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+}
+
+/* Focus styles - WCAG 2.4.7 Focus Visible */
+.link:focus-visible {
+  outline: 2px solid var(--color-border-focus, #0ea5e9);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.link:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Hover state */
+.link:hover:not(:disabled) {
+  color: var(--color-primary-700, #0369a1);
+  text-decoration-thickness: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .link {
+    text-decoration-thickness: 2px;
+  }
+  
+  .link:focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* Skip link styles (for keyboard navigation) */
+.link--skip {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  z-index: 1000;
+  padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
+  background-color: var(--color-background-default, #ffffff);
+  color: var(--color-text-primary, #171717);
+  border: 2px solid var(--color-border-focus, #0ea5e9);
+  border-radius: 0.375rem;
+  font-weight: var(--font-weight-semibold, 600);
+  text-decoration: none;
+}
+
+.link--skip:focus {
+  top: var(--spacing-4, 1rem);
+}
+
+/* External link icon */
+.link__external-icon {
+  display: inline-block;
+  margin-left: 0.25em;
+  font-size: 0.875em;
+  vertical-align: baseline;
+}
+

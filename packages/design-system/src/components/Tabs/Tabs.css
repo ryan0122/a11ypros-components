@@ -1,0 +1,100 @@
+.tabs {
+  width: 100%;
+}
+
+.tabs-list {
+  display: flex;
+  border-bottom: 1px solid var(--color-border-default, #e5e5e5);
+  gap: var(--spacing-1, 0.25rem);
+}
+
+.tabs--vertical .tabs-list {
+  flex-direction: column;
+  border-bottom: none;
+  border-right: 1px solid var(--color-border-default, #e5e5e5);
+  align-items: stretch;
+}
+
+.tabs-tab {
+  padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-secondary, #525252);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1)),
+              border-color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
+  white-space: nowrap;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .tabs-tab {
+    transition: none;
+  }
+}
+
+.tabs--vertical .tabs-tab {
+  border-bottom: none;
+  border-right: 2px solid transparent;
+  text-align: left;
+}
+
+.tabs-tab:hover:not(:disabled) {
+  color: var(--color-text-primary, #171717);
+}
+
+.tabs-tab--selected {
+  color: var(--color-primary-600, #0284c7);
+  border-bottom-color: var(--color-primary-500, #0ea5e9);
+}
+
+.tabs--vertical .tabs-tab--selected {
+  border-bottom-color: transparent;
+  border-right-color: var(--color-primary-500, #0ea5e9);
+}
+
+.tabs-tab:focus-visible {
+  outline: 2px solid var(--color-border-focus, #0ea5e9);
+  outline-offset: -2px;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+.tabs--vertical .tabs-tab:focus-visible {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.tabs-tab--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tabs-panel {
+  padding: var(--spacing-6, 1.5rem);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .tabs-list {
+    border-bottom-width: 2px;
+  }
+  
+  .tabs--vertical .tabs-list {
+    border-right-width: 2px;
+  }
+  
+  .tabs-tab--selected {
+    border-bottom-width: 3px;
+  }
+  
+  .tabs--vertical .tabs-tab--selected {
+    border-right-width: 3px;
+  }
+  
+  .tabs-tab:focus-visible {
+    outline-width: 3px;
+  }
+}
+

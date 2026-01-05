@@ -1,0 +1,33 @@
+/**
+ * Import all component styles
+ * Import this file to get all component styles
+ */
+
+/* Button */
+@import '../components/Button/Button.css';
+
+/* Link */
+@import '../components/Link/Link.css';
+
+/* Modal */
+@import '../components/Modal/Modal.css';
+
+/* DataTable */
+@import '../components/DataTable/DataTable.css';
+
+/* Toast */
+@import '../components/Toast/Toast.css';
+@import '../components/Toast/ToastProvider.css';
+
+/* Tabs */
+@import '../components/Tabs/Tabs.css';
+
+/* Form components */
+@import '../components/Form/Label.css';
+@import '../components/Form/Input.css';
+@import '../components/Form/Textarea.css';
+@import '../components/Form/Select.css';
+@import '../components/Form/Checkbox.css';
+@import '../components/Form/Radio.css';
+@import '../components/Form/Fieldset.css';
+
