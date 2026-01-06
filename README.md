@@ -16,7 +16,6 @@ An opinionated, accessibility-first design system built with React, TypeScript, 
 ## Project Structure
 
 ```
-PORTFOLIO/
 ├── packages/
 │   └── design-system/     # Component library
 │       ├── src/
