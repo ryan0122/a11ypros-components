@@ -29,7 +29,7 @@ import { Radio } from './Radio'
  * 
  * ## Features
  * 
- * - **Semantic grouping**: Uses proper \`<fieldset>\` and \`<legend>\` elements
+ * - **Semantic grouping**: Uses proper `<fieldset>` and `<legend>` elements
  * - **Visual legend**: Legend text provides context for the grouped fields
  * - **Hidden legend**: Option to hide legend visually while keeping it accessible
  * - **Required indicator**: Shows asterisk when fieldset contains required fields
