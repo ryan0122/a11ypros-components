@@ -43,7 +43,7 @@ export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
       <label ref={ref} className={classes} {...props}>
         {children}
         {required && (
-          <span className="form-label__required" aria-label="required">
+          <span className="form-label__required" aria-hidden="true">
             {' '}*
           </span>
         )}
