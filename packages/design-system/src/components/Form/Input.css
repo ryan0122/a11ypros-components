@@ -41,7 +41,7 @@
 .form-input--error:focus {
   border-color: var(--color-error-500, #ef4444);
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-error-500, #ef4444);
+  box-shadow: 0 0 0 2px var(--color-background-default, #ffffff), 0 0 0 4px var(--color-error-500, #ef4444);
   outline: none;
 }
 
