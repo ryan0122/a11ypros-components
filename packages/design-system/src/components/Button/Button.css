@@ -109,12 +109,12 @@
 }
 
 .btn--danger {
-  background-color: var(--color-error-500, #ef4444);
+  background-color: var(--color-error-600, #dc2626);
   color: var(--color-text-inverse, #ffffff);
 }
 
 .btn--danger:hover:not(:disabled) {
-  background-color: var(--color-error-600, #dc2626);
+  background-color: var(--color-error-700, #b91c1c);
 }
 
 .btn--danger:active:not(:disabled) {
