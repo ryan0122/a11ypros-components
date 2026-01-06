@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { DataTable } from './DataTable'
 
 /**
@@ -128,14 +128,35 @@ const columns = [
   { key: 'role', header: 'Role', sortable: true },
 ]
 
+// Helper function to sort data
+function sortData<T extends Record<string, any>>(
+  data: T[],
+  sortConfig: { column: string; direction: 'asc' | 'desc' } | undefined
+): T[] {
+  if (!sortConfig) return data
+
+  return [...data].sort((a, b) => {
+    const aValue = a[sortConfig.column]
+    const bValue = b[sortConfig.column]
+
+    if (aValue === bValue) return 0
+
+    const comparison = aValue < bValue ? -1 : 1
+    return sortConfig.direction === 'asc' ? comparison : -comparison
+  })
+}
+
 /**
- * Basic data table with sortable columns. Users can click column headers
- * to sort data. Sort state is announced to screen readers.
+ * Basic data table without sorting. Simple table display with keyboard navigation.
  */
 export const Default: Story = {
   args: {
     data: sampleData,
-    columns,
+    columns: [
+      { key: 'name', header: 'Name' },
+      { key: 'email', header: 'Email' },
+      { key: 'role', header: 'Role' },
+    ],
     getRowId: (row) => row.id,
     caption: 'User list',
   },
@@ -151,7 +172,11 @@ export const Selectable: Story = {
     return (
       <DataTable
         data={sampleData}
-        columns={columns}
+        columns={[
+          { key: 'name', header: 'Name' },
+          { key: 'email', header: 'Email' },
+          { key: 'role', header: 'Role' },
+        ]}
         getRowId={(row) => row.id}
         selectable
         selectedRows={selectedRows}
@@ -169,9 +194,11 @@ export const Selectable: Story = {
 export const Sortable: Story = {
   render: () => {
     const [sortConfig, setSortConfig] = useState<{ column: string; direction: 'asc' | 'desc' } | undefined>()
+    const sortedData = useMemo(() => sortData(sampleData, sortConfig), [sortConfig])
+
     return (
       <DataTable
-        data={sampleData}
+        data={sortedData}
         columns={columns}
         getRowId={(row) => row.id}
         sortConfig={sortConfig}

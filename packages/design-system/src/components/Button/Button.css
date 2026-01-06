@@ -44,11 +44,37 @@
 }
 
 /* Disabled state */
-.btn:disabled,
-.btn[aria-disabled="true"] {
-  opacity: 0.6;
+.btn:disabled:not(.btn--loading),
+.btn[aria-disabled="true"]:not(.btn--loading) {
   cursor: not-allowed;
   pointer-events: none;
+  opacity: 1; /* Reset opacity so we can use explicit colors */
+}
+
+/* Disabled state colors for each variant (but not when loading) */
+.btn--primary:disabled:not(.btn--loading),
+.btn--primary[aria-disabled="true"]:not(.btn--loading) {
+  background-color: var(--color-neutral-300, #d4d4d4);
+  color: var(--color-neutral-500, #737373);
+}
+
+.btn--secondary:disabled:not(.btn--loading),
+.btn--secondary[aria-disabled="true"]:not(.btn--loading) {
+  background-color: var(--color-neutral-100, #f5f5f5);
+  color: var(--color-neutral-400, #a3a3a3);
+  border-color: var(--color-neutral-200, #e5e5e5);
+}
+
+.btn--ghost:disabled:not(.btn--loading),
+.btn--ghost[aria-disabled="true"]:not(.btn--loading) {
+  background-color: transparent;
+  color: var(--color-neutral-400, #a3a3a3);
+}
+
+.btn--danger:disabled:not(.btn--loading),
+.btn--danger[aria-disabled="true"]:not(.btn--loading) {
+  background-color: var(--color-neutral-300, #d4d4d4);
+  color: var(--color-neutral-500, #737373);
 }
 
 /* Sizes */
@@ -69,16 +95,16 @@
 
 /* Variants */
 .btn--primary {
-  background-color: var(--color-primary-500, #0ea5e9);
+  background-color: var(--color-primary-700, #0369a1);
   color: var(--color-text-inverse, #ffffff);
 }
 
 .btn--primary:hover:not(:disabled) {
-  background-color: var(--color-primary-600, #0284c7);
+  background-color: var(--color-primary-800, #075985);
 }
 
 .btn--primary:active:not(:disabled) {
-  background-color: var(--color-primary-700, #0369a1);
+  background-color: var(--color-primary-900, #0c4a6e);
 }
 
 .btn--secondary {
@@ -109,12 +135,12 @@
 }
 
 .btn--danger {
-  background-color: var(--color-error-500, #ef4444);
+  background-color: var(--color-error-600, #dc2626);
   color: var(--color-text-inverse, #ffffff);
 }
 
 .btn--danger:hover:not(:disabled) {
-  background-color: var(--color-error-600, #dc2626);
+  background-color: var(--color-error-700, #b91c1c);
 }
 
 .btn--danger:active:not(:disabled) {
@@ -124,7 +150,29 @@
 /* Loading state */
 .btn--loading {
   position: relative;
+  cursor: wait;
+  pointer-events: none;
+}
+
+.btn--loading .btn__content {
   color: transparent;
+}
+
+/* Loading state colors - use slightly different shade of variant color */
+.btn--loading.btn--primary {
+  background-color: var(--color-primary-600, #0284c7);
+}
+
+.btn--loading.btn--secondary {
+  background-color: var(--color-neutral-50, #fafafa);
+}
+
+.btn--loading.btn--ghost {
+  background-color: var(--color-neutral-50, #fafafa);
+}
+
+.btn--loading.btn--danger {
+  background-color: var(--color-error-500, #ef4444);
 }
 
 .btn__spinner {
@@ -132,6 +180,75 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Set spinner color based on button variant */
+.btn--primary .btn__spinner,
+.btn--danger .btn__spinner {
+  color: var(--color-text-inverse, #ffffff);
+}
+
+.btn--secondary .btn__spinner,
+.btn--ghost .btn__spinner {
+  color: var(--color-text-primary, #171717);
+}
+
+.btn__spinner-icon {
+  width: 1em;
+  height: 1em;
+  color: inherit;
+  animation: btn-spin 0.8s linear infinite;
+}
+
+.btn__spinner-circle {
+  opacity: 1;
+  stroke-width: 2.5;
+}
+
+.btn__spinner-circle {
+  animation: btn-spinner-dash 1.5s ease-in-out infinite;
+}
+
+@keyframes btn-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes btn-spinner-dash {
+  0% {
+    stroke-dasharray: 1, 31.416;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 18.85, 31.416;
+    stroke-dashoffset: -9.425;
+  }
+  100% {
+    stroke-dasharray: 1, 31.416;
+    stroke-dashoffset: -31.416;
+  }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn__spinner-icon,
+  .btn__spinner-circle {
+    animation: none;
+  }
+  
+  .btn__spinner-circle {
+    stroke-dasharray: 31.416;
+    stroke-dashoffset: 0;
+    opacity: 0.5;
+  }
 }
 
 .btn__content {

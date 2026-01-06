@@ -11,6 +11,11 @@ export interface FieldsetProps extends React.FieldsetHTMLAttributes<HTMLFieldSet
    * Whether the legend is visually hidden (but still accessible)
    */
   legendHidden?: boolean
+  
+  /**
+   * Whether to show a required field explanation. Use this if the fieldset contains required fields.
+   */
+  required?: boolean
 }
 
 /**
@@ -29,7 +34,7 @@ export interface FieldsetProps extends React.FieldsetHTMLAttributes<HTMLFieldSet
  * ```
  */
 export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(
-  ({ legend, legendHidden = false, className = '', children, ...props }, ref) => {
+  ({ legend, legendHidden = false, required = false, className = '', children, ...props }, ref) => {
     const classes = [
       'form-fieldset',
       className,
@@ -49,12 +54,12 @@ export const Fieldset = React.forwardRef<HTMLFieldSetElement, FieldsetProps>(
         {legend && (
           <legend className={legendClasses}>
             {legend}
-            {props.required && (
-              <span className="form-label__required" aria-label="required">
-                {' '}*
-              </span>
-            )}
           </legend>
+        )}
+        {required && (
+          <p className="fieldset__required">
+            {' '}<span className='fieldset__required-indicator'>*</span> indicates a required field.
+          </p>
         )}
         {children}
       </fieldset>

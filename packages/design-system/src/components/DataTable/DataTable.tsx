@@ -209,19 +209,24 @@ export function DataTable<T extends Record<string, any>>({
                 scope="col"
                 className={`data-table-header ${column.sortable ? 'data-table-header--sortable' : ''}`}
                 style={column.width ? { width: column.width } : undefined}
+                aria-sort={
+                  sortConfig?.column === column.key
+                    ? sortConfig.direction === 'asc'
+                      ? 'ascending'
+                      : 'descending'
+                    : 'none'
+                }
               >
                 {column.sortable ? (
                   <button
                     type="button"
                     className="data-table-sort-button"
-                    onClick={() => handleSort(column.key)}
-                    aria-sort={
+                    aria-label={
                       sortConfig?.column === column.key
-                        ? sortConfig.direction === 'asc'
-                          ? 'ascending'
-                          : 'descending'
-                        : 'none'
+                        ? `${column.header}, sorted ${sortConfig.direction === 'asc' ? 'ascending' : 'descending'}, activate to sort ${sortConfig.direction === 'asc' ? 'descending' : 'ascending'}`
+                        : `Sort by ${column.header}`
                     }
+                    onClick={() => handleSort(column.key)}
                   >
                     {column.header}
                     {sortConfig?.column === column.key && (

@@ -176,6 +176,7 @@ export const WithCheckboxes: Story = {
 
     return (
       <Fieldset legend="Notification Preferences">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <Checkbox
           id="pref-email"
           label="Email notifications"
@@ -194,6 +195,7 @@ export const WithCheckboxes: Story = {
           checked={preferences.push}
           onChange={(e) => setPreferences((prev) => ({ ...prev, push: e.target.checked }))}
         />
+        </div>
       </Fieldset>
     )
   },

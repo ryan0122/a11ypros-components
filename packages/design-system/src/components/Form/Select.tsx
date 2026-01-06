@@ -110,7 +110,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           <label htmlFor={finalId} className="form-label">
             {label}
             {props.required && (
-              <span className="form-label__required" aria-label="required">
+              <span className="form-label__required" aria-hidden="true">
                 {' '}*
               </span>
             )}
@@ -123,6 +123,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
           onKeyDown={handleKeyDown}
+          required={props.required ? true : undefined}
           {...props}
         >
           {placeholder && (

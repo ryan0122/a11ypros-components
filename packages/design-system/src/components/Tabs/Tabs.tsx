@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useCallback, useRef } from 'react'
-import { createArrowKeyHandler, isNavigationKey } from '../../utils/keyboard'
+import { createArrowKeyHandler, isNavigationKey, isArrowKey } from '../../utils/keyboard'
 import { getExpandedAttributes, getSelectedAttributes, getCurrentAttributes } from '../../utils/aria'
 import './Tabs.css'
 
@@ -39,6 +39,14 @@ export interface TabsProps {
   orientation?: 'horizontal' | 'vertical'
   
   /**
+   * Activation mode for tabs
+   * - 'automatic': Arrow keys both move focus and activate tabs immediately
+   * - 'manual': Arrow keys move focus only, Enter/Space activates the focused tab
+   * @default 'automatic'
+   */
+  activationMode?: 'automatic' | 'manual'
+  
+  /**
    * Label for the tab list (required for accessibility)
    */
   'aria-label'?: string
@@ -70,16 +78,21 @@ export const Tabs: React.FC<TabsProps> = ({
   selectedId: controlledSelectedId,
   onSelectionChange,
   orientation = 'horizontal',
+  activationMode = 'automatic',
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
 }) => {
-  const [internalSelectedId, setInternalSelectedId] = useState(
-    defaultSelectedId || items[0]?.id
-  )
+  const initialSelectedId = defaultSelectedId || items[0]?.id
+  const [internalSelectedId, setInternalSelectedId] = useState(initialSelectedId)
+  const [focusedId, setFocusedId] = useState<string | null>(initialSelectedId)
   const tabRefs = useRef<Map<string, HTMLButtonElement>>(new Map())
 
   const selectedId = controlledSelectedId ?? internalSelectedId
   const selectedIndex = items.findIndex((item) => item.id === selectedId)
+  
+  // In automatic mode, focused tab is always the selected tab
+  // In manual mode, focused tab can be different from selected tab
+  const effectiveFocusedId = activationMode === 'automatic' ? selectedId : (focusedId || selectedId)
 
   const handleSelect = useCallback(
     (id: string) => {
@@ -88,8 +101,12 @@ export const Tabs: React.FC<TabsProps> = ({
       } else {
         setInternalSelectedId(id)
       }
+      // In manual mode, update focused tab when selecting
+      if (activationMode === 'manual') {
+        setFocusedId(id)
+      }
     },
-    [onSelectionChange]
+    [onSelectionChange, activationMode]
   )
 
   const handleKeyDown = useCallback(
@@ -97,7 +114,18 @@ export const Tabs: React.FC<TabsProps> = ({
       const isHorizontal = orientation === 'horizontal'
       let newIndex = currentIndex
 
-      if (isNavigationKey(event.key)) {
+      // Handle Enter/Space for manual activation
+      if (activationMode === 'manual' && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault()
+        const currentTab = items[currentIndex]
+        if (currentTab && !currentTab.disabled) {
+          handleSelect(currentTab.id)
+        }
+        return
+      }
+
+      // Handle arrow keys and Home/End
+      if (isNavigationKey(event.key) || isArrowKey(event.key)) {
         event.preventDefault()
 
         switch (event.key) {
@@ -140,12 +168,19 @@ export const Tabs: React.FC<TabsProps> = ({
 
         const newTab = items[newIndex]
         if (newTab && !newTab.disabled) {
-          handleSelect(newTab.id)
-          tabRefs.current.get(newTab.id)?.focus()
+          if (activationMode === 'automatic') {
+            // Automatic: move focus and activate
+            handleSelect(newTab.id)
+            tabRefs.current.get(newTab.id)?.focus()
+          } else {
+            // Manual: move focus only
+            setFocusedId(newTab.id)
+            tabRefs.current.get(newTab.id)?.focus()
+          }
         }
       }
     },
-    [items, orientation, handleSelect]
+    [items, orientation, activationMode, handleSelect]
   )
 
   const selectedTab = items.find((item) => item.id === selectedId)
@@ -161,8 +196,12 @@ export const Tabs: React.FC<TabsProps> = ({
       >
         {items.map((item, index) => {
           const isSelected = item.id === selectedId
-          const isFirst = index === 0
-          const isLast = index === items.length - 1
+          const isFocused = item.id === effectiveFocusedId
+          // In manual mode, focused tab should be focusable even if not selected
+          // In automatic mode, only selected tab is focusable
+          const tabIndex = activationMode === 'manual' 
+            ? (isFocused ? 0 : -1)
+            : (isSelected ? 0 : -1)
 
           return (
             <button
@@ -178,11 +217,12 @@ export const Tabs: React.FC<TabsProps> = ({
               role="tab"
               aria-controls={`tabpanel-${item.id}`}
               aria-selected={isSelected}
-              tabIndex={isSelected ? 0 : -1}
+              tabIndex={tabIndex}
               disabled={item.disabled}
               className={`tabs-tab ${isSelected ? 'tabs-tab--selected' : ''} ${item.disabled ? 'tabs-tab--disabled' : ''}`}
               onClick={() => !item.disabled && handleSelect(item.id)}
               onKeyDown={(e) => handleKeyDown(e, index)}
+              onFocus={() => setFocusedId(item.id)}
               {...getCurrentAttributes(isSelected ? 'page' : undefined)}
             >
               {item.label}
