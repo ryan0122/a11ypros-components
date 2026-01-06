@@ -37,8 +37,23 @@
 
 .toast-message {
   font-size: var(--font-size-base, 1rem);
+  /* WCAG 2.2 1.4.12 Text Spacing: Line height at least 1.5 times font size */
   line-height: var(--line-height-normal, 1.5);
+  /* WCAG 2.2 1.4.12 Text Spacing: Letter spacing at least 0.12 times font size */
+  letter-spacing: calc(var(--font-size-base, 1rem) * 0.12);
+  /* WCAG 2.2 1.4.12 Text Spacing: Word spacing at least 0.16 times font size */
+  word-spacing: calc(var(--font-size-base, 1rem) * 0.16);
   color: var(--color-text-primary, #171717);
+}
+
+/* WCAG 2.2 1.4.12 Text Spacing: Spacing following paragraphs at least 2 times font size */
+.toast-message p {
+  margin-top: 0;
+  margin-bottom: calc(var(--font-size-base, 1rem) * 2);
+}
+
+.toast-message p:last-child {
+  margin-bottom: 0;
 }
 
 .toast-dismiss {
