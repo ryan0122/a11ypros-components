@@ -190,7 +190,7 @@ export const Sizes: Story = {
 export const Loading: Story = {
   args: {
     loading: true,
-    children: 'Saving...',
+    children: 'Save',
   },
 }
 
