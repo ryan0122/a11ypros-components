@@ -79,7 +79,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           <label htmlFor={finalId} className="form-label">
             {label}
             {props.required && (
-              <span className="form-label__required" aria-label="required">
+              <span className="form-label__required" aria-hidden="true">
                 {' '}*
               </span>
             )}
@@ -91,6 +91,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           className={classes}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
+          required={props.required ? true : undefined}
           {...props}
         />
         {helperText && !error && (

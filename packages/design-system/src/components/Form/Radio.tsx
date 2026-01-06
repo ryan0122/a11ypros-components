@@ -68,6 +68,10 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
       error,
       helperText,
       className = '',
+      value,
+      onChange,
+      disabled,
+      required,
       'aria-describedby': ariaDescribedBy,
       ...props
     },
@@ -89,7 +93,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           <div className="form-radio-label" role="group" aria-labelledby={label ? `radio-label-${groupId}` : undefined}>
             <span id={`radio-label-${groupId}`} className="form-label">
               {label}
-              {props.required && (
+              {required && (
                 <span className="form-label__required" aria-label="required">
                   {' '}*
                 </span>
@@ -100,7 +104,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         <div className="form-radio-group" role="radiogroup" aria-describedby={describedBy} aria-invalid={error ? true : undefined}>
           {options.map((option, index) => {
             const optionId = `radio-${groupId}-${index}`
-            const isChecked = props.value === option.value
+            const isChecked = value === option.value
             
             return (
               <div key={option.value} className="form-radio-option">
@@ -111,7 +115,9 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
                   name={name}
                   value={option.value}
                   checked={isChecked}
-                  disabled={option.disabled || props.disabled}
+                  onChange={onChange}
+                  disabled={option.disabled || disabled}
+                  required={required}
                   className="form-radio"
                   {...props}
                 />

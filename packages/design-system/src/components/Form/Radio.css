@@ -23,6 +23,39 @@
   cursor: pointer;
   accent-color: var(--color-primary-500, #0ea5e9);
   flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid var(--color-border-default, #d4d4d4);
+  border-radius: 50%;
+  background-color: var(--color-background, #ffffff);
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.form-radio:checked {
+  border-color: var(--color-primary-500, #0ea5e9);
+  background-color: var(--color-background, #ffffff);
+}
+
+.form-radio:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-primary-500, #0ea5e9);
+}
+
+.form-radio:hover:not(:disabled) {
+  border-color: var(--color-primary-600, #0284c7);
+}
+
+.form-radio:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .form-radio:focus-visible {
