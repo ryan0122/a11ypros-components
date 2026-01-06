@@ -84,6 +84,7 @@ export const Modal: React.FC<ModalProps> = ({
   returnFocusTo,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const titleId = React.useId()
   const descriptionId = React.useId()
 
@@ -111,14 +112,50 @@ export const Modal: React.FC<ModalProps> = ({
     }
   }, [isOpen])
 
-  // Handle backdrop click
-  const handleBackdropClick = (event: React.MouseEvent<HTMLDialogElement>) => {
-    // The dialog element itself is clicked when backdrop is clicked
-    // (not the content inside)
-    if (closeOnBackdropClick && event.target === event.currentTarget) {
-      onClose();
+  // Handle backdrop clicks
+  // The ::backdrop pseudo-element doesn't bubble events to the dialog element,
+  // so we need to listen for clicks on the document and check if they're outside
+  // the dialog content area.
+  useEffect(() => {
+    if (!isOpen || !closeOnBackdropClick) return
+
+    const handleDocumentClick = (event: MouseEvent) => {
+      const dialog = dialogRef.current
+      const content = contentRef.current
+      
+      if (!dialog || !content) return
+
+      // Check if click target is outside the dialog content area
+      const target = event.target as Node
+      
+      // If the click is not inside the content wrapper, it's a backdrop click
+      if (!content.contains(target)) {
+        // Verify click coordinates are outside content bounds for extra safety
+        const rect = content.getBoundingClientRect()
+        const clickX = event.clientX
+        const clickY = event.clientY
+        
+        const isOutsideContent = 
+          clickX < rect.left ||
+          clickX > rect.right ||
+          clickY < rect.top ||
+          clickY > rect.bottom
+
+        if (isOutsideContent) {
+          event.preventDefault()
+          event.stopPropagation()
+          onClose()
+        }
+      }
     }
-  }
+
+    // Use capture phase to catch events before they bubble
+    document.addEventListener('mousedown', handleDocumentClick, true)
+
+    return () => {
+      document.removeEventListener('mousedown', handleDocumentClick, true)
+    }
+  }, [isOpen, closeOnBackdropClick, onClose])
 
   // Handle cancel event (fires when ESC key is pressed)
   const handleCancel = (event: React.SyntheticEvent<HTMLDialogElement>) => {
@@ -136,25 +173,26 @@ export const Modal: React.FC<ModalProps> = ({
       className={`modal modal--${size} ${isOpen ? 'modal--open' : ''}`}
       aria-labelledby={titleId}
       aria-describedby={descriptionId}
-      onClick={handleBackdropClick}
       onCancel={handleCancel}
     >
-      <div className="modal-header">
-        <h2 id={titleId} className="modal-title">
-          {title}
-        </h2>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={onClose}
-          aria-label="Close modal"
-          className="modal-close"
-        >
-          ×
-        </Button>
-      </div>
-      <div id={descriptionId} className="modal-content">
-        {children}
+      <div ref={contentRef} className="modal-content-wrapper">
+        <div className="modal-header">
+          <h2 id={titleId} className="modal-title">
+            {title}
+          </h2>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            aria-label="Close modal"
+            className="modal-close"
+          >
+            ×
+          </Button>
+        </div>
+        <div id={descriptionId} className="modal-content">
+          {children}
+        </div>
       </div>
     </dialog>
   )
