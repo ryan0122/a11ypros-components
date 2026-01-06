@@ -123,6 +123,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
           onKeyDown={handleKeyDown}
+          required={props.required ? true : undefined}
           {...props}
         >
           {placeholder && (

@@ -110,6 +110,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           value={value}
           aria-invalid={error ? true : undefined}
           aria-describedby={describedBy}
+          required={props.required ? true : undefined}
           {...props}
         />
         {(showCount || helperText) && (
