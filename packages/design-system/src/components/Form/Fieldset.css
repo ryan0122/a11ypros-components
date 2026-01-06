@@ -5,6 +5,16 @@
   margin: 0;
 }
 
+.fieldset__required {
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-normal, 400);
+  color: var(--color-text-secondary, #6b7280);
+  margin-block-end: var(--spacing-3, 0.75rem);
+}
+
+.fieldset__required-indicator {
+  color: var(--color-error-500, #ef4444);
+}
 .form-legend {
   font-size: var(--font-size-base, 1rem);
   font-weight: var(--font-weight-semibold, 600);

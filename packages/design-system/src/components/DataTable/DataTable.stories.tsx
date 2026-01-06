@@ -147,24 +147,18 @@ function sortData<T extends Record<string, any>>(
 }
 
 /**
- * Basic data table with sortable columns. Users can click column headers
- * to sort data. Sort state is announced to screen readers.
+ * Basic data table without sorting. Simple table display with keyboard navigation.
  */
 export const Default: Story = {
-  render: () => {
-    const [sortConfig, setSortConfig] = useState<{ column: string; direction: 'asc' | 'desc' } | undefined>()
-    const sortedData = useMemo(() => sortData(sampleData, sortConfig), [sortConfig])
-
-    return (
-      <DataTable
-        data={sortedData}
-        columns={columns}
-        getRowId={(row) => row.id}
-        sortConfig={sortConfig}
-        onSortChange={(column, direction) => setSortConfig({ column, direction })}
-        caption="User list"
-      />
-    )
+  args: {
+    data: sampleData,
+    columns: [
+      { key: 'name', header: 'Name' },
+      { key: 'email', header: 'Email' },
+      { key: 'role', header: 'Role' },
+    ],
+    getRowId: (row) => row.id,
+    caption: 'User list',
   },
 }
 
@@ -175,19 +169,18 @@ export const Default: Story = {
 export const Selectable: Story = {
   render: () => {
     const [selectedRows, setSelectedRows] = useState<string[]>([])
-    const [sortConfig, setSortConfig] = useState<{ column: string; direction: 'asc' | 'desc' } | undefined>()
-    const sortedData = useMemo(() => sortData(sampleData, sortConfig), [sortConfig])
-
     return (
       <DataTable
-        data={sortedData}
-        columns={columns}
+        data={sampleData}
+        columns={[
+          { key: 'name', header: 'Name' },
+          { key: 'email', header: 'Email' },
+          { key: 'role', header: 'Role' },
+        ]}
         getRowId={(row) => row.id}
         selectable
         selectedRows={selectedRows}
         onSelectionChange={setSelectedRows}
-        sortConfig={sortConfig}
-        onSortChange={(column, direction) => setSortConfig({ column, direction })}
         caption="Selectable user list"
       />
     )
