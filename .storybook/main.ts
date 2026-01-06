@@ -27,6 +27,7 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true,
   },
+  staticDirs: ['../public'],
 }
 
 export default config
