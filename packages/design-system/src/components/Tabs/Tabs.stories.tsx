@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { useState } from 'react'
 import { Tabs } from './Tabs'
 
 /**
@@ -28,6 +29,7 @@ import { Tabs } from './Tabs'
  * ## Features
  * 
  * - **Arrow key navigation**: Navigate between tabs using arrow keys
+ * - **Activation modes**: Automatic (arrow keys activate immediately) or manual (arrow keys move focus, Enter/Space activates)
  * - **Home/End support**: Jump to first or last tab
  * - **Orientation support**: Horizontal (default) or vertical layouts
  * - **ARIA tabs pattern**: Proper semantic structure and ARIA attributes
@@ -44,14 +46,15 @@ import { Tabs } from './Tabs'
  * 
  * ### Keyboard Interactions
  * 
- * | Key | Action |
- * |-----|--------|
- * | **Arrow Right/Down** | Move to next tab |
- * | **Arrow Left/Up** | Move to previous tab |
- * | **Home** | Move to first tab |
- * | **End** | Move to last tab |
- * | **Tab** | Move focus to tab panel content |
- * | **Shift+Tab** | Move focus away from tabs |
+ * | Key | Action (Automatic) | Action (Manual) |
+ * |-----|---------------------|-----------------|
+ * | **Arrow Right/Down** | Move to next tab and activate | Move focus to next tab |
+ * | **Arrow Left/Up** | Move to previous tab and activate | Move focus to previous tab |
+ * | **Home** | Move to first tab and activate | Move focus to first tab |
+ * | **End** | Move to last tab and activate | Move focus to last tab |
+ * | **Enter/Space** | N/A | Activate focused tab |
+ * | **Tab** | Move focus to tab panel content | Move focus to tab panel content |
+ * | **Shift+Tab** | Move focus away from tabs | Move focus away from tabs |
  * 
  * ### Screen Reader Support
  * 
@@ -109,25 +112,33 @@ type Story = StoryObj<typeof Tabs>
  * with tab panels displayed below. Use for most common tab scenarios.
  */
 export const Default: Story = {
-  args: {
-    'aria-label': 'Settings tabs',
-    items: [
-      {
-        id: 'general',
-        label: 'General',
-        content: <div>General settings content</div>,
-      },
-      {
-        id: 'account',
-        label: 'Account',
-        content: <div>Account settings content</div>,
-      },
-      {
-        id: 'privacy',
-        label: 'Privacy',
-        content: <div>Privacy settings content</div>,
-      },
-    ],
+  render: () => {
+    const [selectedId, setSelectedId] = useState('general')
+    
+    return (
+      <Tabs
+        aria-label="Settings tabs"
+        selectedId={selectedId}
+        onSelectionChange={setSelectedId}
+        items={[
+          {
+            id: 'general',
+            label: 'General',
+            content: <div>General settings content</div>,
+          },
+          {
+            id: 'account',
+            label: 'Account',
+            content: <div>Account settings content</div>,
+          },
+          {
+            id: 'privacy',
+            label: 'Privacy',
+            content: <div>Privacy settings content</div>,
+          },
+        ]}
+      />
+    )
   },
 }
 
@@ -137,21 +148,66 @@ export const Default: Story = {
  * when you have many tabs that would overflow horizontally.
  */
 export const Vertical: Story = {
-  args: {
-    'aria-label': 'Vertical tabs',
-    orientation: 'vertical',
-    items: [
-      {
-        id: 'tab1',
-        label: 'Tab 1',
-        content: <div>Content 1</div>,
-      },
-      {
-        id: 'tab2',
-        label: 'Tab 2',
-        content: <div>Content 2</div>,
-      },
-    ],
+  render: () => {
+    const [selectedId, setSelectedId] = useState('tab1')
+    
+    return (
+      <Tabs
+        aria-label="Vertical tabs"
+        orientation="vertical"
+        selectedId={selectedId}
+        onSelectionChange={setSelectedId}
+        items={[
+          {
+            id: 'tab1',
+            label: 'Tab 1',
+            content: <div>Content 1</div>,
+          },
+          {
+            id: 'tab2',
+            label: 'Tab 2',
+            content: <div>Content 2</div>,
+          },
+        ]}
+      />
+    )
+  },
+}
+
+/**
+ * Manual activation mode. Arrow keys move focus between tabs without activating them.
+ * Press Enter or Space to activate the focused tab. This is useful when tab content
+ * changes are expensive or when you want users to preview tabs before activating.
+ */
+export const ManualActivation: Story = {
+  render: () => {
+    const [selectedId, setSelectedId] = useState('general')
+    
+    return (
+      <Tabs
+        aria-label="Settings tabs with manual activation"
+        activationMode="manual"
+        selectedId={selectedId}
+        onSelectionChange={setSelectedId}
+        items={[
+          {
+            id: 'general',
+            label: 'General',
+            content: <div>General settings content</div>,
+          },
+          {
+            id: 'account',
+            label: 'Account',
+            content: <div>Account settings content</div>,
+          },
+          {
+            id: 'privacy',
+            label: 'Privacy',
+            content: <div>Privacy settings content</div>,
+          },
+        ]}
+      />
+    )
   },
 }
 

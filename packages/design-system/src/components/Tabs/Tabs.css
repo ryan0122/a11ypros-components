@@ -47,13 +47,13 @@
 }
 
 .tabs-tab--selected {
-  color: var(--color-primary-600, #0284c7);
-  border-bottom-color: var(--color-primary-500, #0ea5e9);
+  color: var(--color-primary-700, #0369a1);
+  border-bottom-color: var(--color-primary-700, #0369a1);
 }
 
 .tabs--vertical .tabs-tab--selected {
   border-bottom-color: transparent;
-  border-right-color: var(--color-primary-500, #0ea5e9);
+  border-right-color: var(--color-primary-700, #0369a1);
 }
 
 .tabs-tab:focus-visible {
