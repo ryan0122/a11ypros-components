@@ -89,9 +89,9 @@ type Story = StoryObj<typeof Fieldset>
 export const Default: Story = {
   render: () => (
     <Fieldset legend="Shipping Address">
-      <Input label="Street address" id="street" />
-      <Input label="City" id="city" />
-      <Input label="Zip code" id="zip" />
+      <Input label="Street address"/>
+      <Input label="City" />
+      <Input label="Zip code"/>
     </Fieldset>
   ),
 }
