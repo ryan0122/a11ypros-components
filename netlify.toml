@@ -15,16 +15,21 @@
 #   ANTHROPIC_API_KEY = "your_key_here"
 
 # Redirect rules - serve Storybook at /storybook
-[[redirects]]
-  from = "/storybook/*"
-  to = "/storybook-static/:splat"
-  status = 200
-
-# Fallback for Storybook index
+# These must come BEFORE the catch-all redirect
+# First, handle the root /storybook path
 [[redirects]]
   from = "/storybook"
   to = "/storybook-static/index.html"
   status = 200
+  force = true
+
+# Handle all Storybook sub-paths (JS files, assets, etc.)
+# This catches /storybook/sb-manager/runtime.js → /storybook-static/sb-manager/runtime.js
+[[redirects]]
+  from = "/storybook/*"
+  to = "/storybook-static/:splat"
+  status = 200
+  force = true
 
 # Netlify Function for audit API
 [[redirects]]
@@ -32,7 +37,16 @@
   to = "/.netlify/functions/audit"
   status = 200
 
+# Explicitly serve Storybook static files (JS, CSS, etc.)
+# This must come before the catch-all to prevent JS files from being redirected to /index.html
+[[redirects]]
+  from = "/storybook-static/*"
+  to = "/storybook-static/:splat"
+  status = 200
+  force = true
+
 # Next.js SPA fallback for client-side routing (must be last)
+# Note: /storybook* and /storybook-static* are handled by rules above
 [[redirects]]
   from = "/*"
   to = "/index.html"

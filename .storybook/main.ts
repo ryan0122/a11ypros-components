@@ -26,6 +26,10 @@ const config: StorybookConfig = {
     disableTelemetry: true,
   },
   staticDirs: ['../public'],
+  // Set base path to match where files are actually located
+  // Storybook will generate paths like /storybook-static/runtime.js
+  // Netlify will serve these files directly (they exist in the out directory)
+  base: '/storybook-static',
 }
 
 export default config

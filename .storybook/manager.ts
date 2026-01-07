@@ -4,7 +4,7 @@ import { create } from '@storybook/theming'
 const theme = create({
   base: 'light',
   brandTitle: 'A11y Pros Design System',
-  brandUrl: '/',
+  brandUrl: '/storybook',
   brandImage: '/logo.png', // Path to your logo file (served from staticDirs)
   brandTarget: '_self',
   
