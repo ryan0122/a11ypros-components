@@ -1,0 +1,39 @@
+# Netlify configuration for ui.a11ypros.com
+
+[build]
+  # Base directory for the build
+  base = "."
+  # Install dependencies, build Storybook, then build Next.js app
+  # Note: yarn install will update lockfile if there are inconsistencies
+  command = "yarn install && yarn build-storybook && yarn workspace @apps/web build"
+  # Publish directory - Next.js static export (includes Storybook in public/)
+  publish = "apps/web/out"
+
+# Environment variables (set these in Netlify dashboard)
+# [build.environment]
+#   NODE_VERSION = "18"
+#   ANTHROPIC_API_KEY = "your_key_here"
+
+# Redirect rules - serve Storybook at /storybook
+[[redirects]]
+  from = "/storybook/*"
+  to = "/storybook-static/:splat"
+  status = 200
+
+# Fallback for Storybook index
+[[redirects]]
+  from = "/storybook"
+  to = "/storybook-static/index.html"
+  status = 200
+
+# Netlify Function for audit API
+[[redirects]]
+  from = "/api/audit"
+  to = "/.netlify/functions/audit"
+  status = 200
+
+# Next.js SPA fallback for client-side routing (must be last)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
