@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { Button } from '@design-system/core'
-import { Input } from '@design-system/core'
 import './audit.css'
 
 interface AuditIssue {
@@ -199,6 +198,7 @@ export default function AuditPage() {
                                 {issue.codeSuggestion && (
                                   <div className="audit-issue-code">
                                     <strong>Code suggestion:</strong>
+                                    {/* @ts-expect-error - react-syntax-highlighter type issue */}
                                     <SyntaxHighlighter
                                       language="jsx"
                                       style={vscDarkPlus}
