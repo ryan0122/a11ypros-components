@@ -10,7 +10,11 @@
     "dev": "npm run dev --workspace=apps/web",
     "build": "npm run build --workspace=apps/web",
     "storybook": "storybook dev -p 6006 --config-dir .storybook",
-    "build-storybook": "storybook build --config-dir .storybook"
+    "build-storybook": "storybook build --config-dir .storybook --output-dir apps/web/public/storybook-static"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.20.0",
+    "@netlify/functions": "^2.4.1"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "9.1.17",
