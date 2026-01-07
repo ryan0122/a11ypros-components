@@ -6,6 +6,11 @@
 /index.json /storybook-static/index.json 200
 /project.json /storybook-static/project.json 200
 
+# Storybook iframe.html - must come before other Storybook rules
+# Storybook loads components in an iframe with query parameters
+/iframe.html /storybook-static/iframe.html 200
+/storybook/iframe.html /storybook-static/iframe.html 200
+
 # Storybook root path
 /storybook /storybook-static/index.html 200
 
@@ -20,5 +25,7 @@
 /storybook-static/* /storybook-static/:splat 200
 
 # Next.js SPA fallback (must be last)
+# Note: This will catch everything else, including Storybook query params
+# But Storybook iframe.html should be handled above
 /* /index.html 200
 
