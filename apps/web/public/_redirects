@@ -1,0 +1,24 @@
+# Storybook redirects - must be in public/ to be included in build
+# IMPORTANT: Order matters! More specific rules must come first
+
+# Storybook JSON files (must come before catch-all)
+# Storybook may request these from root
+/index.json /storybook-static/index.json 200
+/project.json /storybook-static/project.json 200
+
+# Storybook root path
+/storybook /storybook-static/index.html 200
+
+# Storybook sub-paths (JS files, assets, etc.)
+# This catches /storybook/sb-manager/runtime.js → /storybook-static/sb-manager/runtime.js
+/storybook/* /storybook-static/:splat 200
+
+# Netlify Function for audit API
+/api/audit /.netlify/functions/audit 200
+
+# Storybook static files (ensures they're served correctly)
+/storybook-static/* /storybook-static/:splat 200
+
+# Next.js SPA fallback (must be last)
+/* /index.html 200
+

@@ -1,0 +1,17 @@
+# Headers for Storybook - VERY permissive CSP to allow eval
+# IMPORTANT: Order matters - more specific paths must come first
+# The _headers file is processed AFTER netlify.toml, so this will override any CSP
+# This CSP works for both local development and production
+
+# Storybook root - must come first to match /storybook before catch-all
+# 'unsafe-eval' must be in script-src (not default-src) for Storybook to work
+/storybook
+  Content-Security-Policy: default-src 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'unsafe-inline' data: http: https:; img-src data: blob: http: https:; font-src data: http: https:; connect-src ws: wss: blob: http: https:; worker-src blob: http: https:; frame-src http: https:;
+
+# Storybook sub-paths
+/storybook/*
+  Content-Security-Policy: default-src 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'unsafe-inline' data: http: https:; img-src data: blob: http: https:; font-src data: http: https:; connect-src ws: wss: blob: http: https:; worker-src blob: http: https:; frame-src http: https:;
+
+# Storybook static files
+/storybook-static/*
+  Content-Security-Policy: default-src 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'unsafe-inline' data: http: https:; img-src data: blob: http: https:; font-src data: http: https:; connect-src ws: wss: blob: http: https:; worker-src blob: http: https:; frame-src http: https:;

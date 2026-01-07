@@ -14,40 +14,24 @@
 #   NODE_VERSION = "18"
 #   ANTHROPIC_API_KEY = "your_key_here"
 
-# Redirect rules - serve Storybook at /storybook
-# These must come BEFORE the catch-all redirect
-# First, handle the root /storybook path
-[[redirects]]
-  from = "/storybook"
-  to = "/storybook-static/index.html"
-  status = 200
-  force = true
+# Redirect rules are now in apps/web/public/_redirects
+# The _redirects file takes precedence and is included in the build output
+# This keeps redirects in sync with the built files
 
-# Handle all Storybook sub-paths (JS files, assets, etc.)
-# This catches /storybook/sb-manager/runtime.js → /storybook-static/sb-manager/runtime.js
-[[redirects]]
-  from = "/storybook/*"
-  to = "/storybook-static/:splat"
-  status = 200
-  force = true
+# Headers for Storybook - VERY permissive CSP to allow eval
+# netlify.toml headers work with netlify serve, _headers file may not
+# Storybook requires 'unsafe-eval' in script-src - this is the most permissive CSP that works
+[[headers]]
+  for = "/storybook-static/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'unsafe-inline' data: http: https:; img-src data: blob: http: https:; font-src data: http: https:; connect-src ws: wss: blob: http: https:; worker-src blob: http: https:; frame-src http: https:;"
 
-# Netlify Function for audit API
-[[redirects]]
-  from = "/api/audit"
-  to = "/.netlify/functions/audit"
-  status = 200
+[[headers]]
+  for = "/storybook"
+  [headers.values]
+    Content-Security-Policy = "default-src 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'unsafe-inline' data: http: https:; img-src data: blob: http: https:; font-src data: http: https:; connect-src ws: wss: blob: http: https:; worker-src blob: http: https:; frame-src http: https:;"
 
-# Explicitly serve Storybook static files (JS, CSS, etc.)
-# This must come before the catch-all to prevent JS files from being redirected to /index.html
-[[redirects]]
-  from = "/storybook-static/*"
-  to = "/storybook-static/:splat"
-  status = 200
-  force = true
-
-# Next.js SPA fallback for client-side routing (must be last)
-# Note: /storybook* and /storybook-static* are handled by rules above
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[[headers]]
+  for = "/storybook/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'unsafe-inline' data: http: https:; img-src data: blob: http: https:; font-src data: http: https:; connect-src ws: wss: blob: http: https:; worker-src blob: http: https:; frame-src http: https:;"

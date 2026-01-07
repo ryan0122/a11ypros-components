@@ -15,7 +15,7 @@
     "build:local:clean": "rm -rf apps/web/.next apps/web/out apps/web/public/storybook-static node_modules/.cache && yarn build:local",
     "build:simulate": "netlify build --offline",
     "storybook": "storybook dev -p 6006 --config-dir .storybook",
-    "build-storybook": "storybook build --config-dir .storybook --output-dir apps/web/public/storybook-static"
+    "build-storybook": "storybook build --config-dir .storybook --output-dir apps/web/public/storybook-static && node scripts/fix-storybook-paths.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.20.0",

@@ -5,7 +5,7 @@ const theme = create({
   base: 'light',
   brandTitle: 'A11y Pros Design System',
   brandUrl: '/storybook',
-  brandImage: '/logo.png', // Path to your logo file (served from staticDirs)
+  brandImage: '/storybook-static/logo.png', // Path to your logo file (served from staticDirs)
   brandTarget: '_self',
   
   colorPrimary: '#0e8168',

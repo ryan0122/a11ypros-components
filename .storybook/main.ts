@@ -9,7 +9,9 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: '@storybook/react-vite',
-    options: {},
+    options: {
+      viteConfigPath: '.storybook/vite.config.ts',
+    },
   },
   docs: {
     autodocs: 'tag',
@@ -26,10 +28,8 @@ const config: StorybookConfig = {
     disableTelemetry: true,
   },
   staticDirs: ['../public'],
-  // Set base path to match where files are actually located
-  // Storybook will generate paths like /storybook-static/runtime.js
-  // Netlify will serve these files directly (they exist in the out directory)
-  base: '/storybook-static',
+  // Base path is configured in vite.config.ts to use /storybook-static/
+  // This ensures assets use absolute paths that match where files are located
 }
 
 export default config
