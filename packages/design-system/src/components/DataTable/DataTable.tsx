@@ -187,7 +187,6 @@ export function DataTable<T extends Record<string, any>>({
       <table
         ref={tableRef}
         className="data-table"
-        role="table"
         aria-label={caption}
       >
         {caption && <caption className="data-table-caption">{caption}</caption>}
@@ -260,7 +259,6 @@ export function DataTable<T extends Record<string, any>>({
                 }}
                 className={`data-table-row ${isSelected ? 'data-table-row--selected' : ''} ${isFocused ? 'data-table-row--focused' : ''}`}
                 tabIndex={0}
-                role="row"
                 aria-selected={selectable ? isSelected : undefined}
                 onKeyDown={(e) => handleKeyDown(e, rowId, index)}
                 onClick={() => {

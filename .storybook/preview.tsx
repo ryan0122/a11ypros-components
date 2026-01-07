@@ -21,9 +21,40 @@ const preview: Preview = {
       },
     },
     docs: {
-      toc: true,
+      toc: false,
     },
   },
+  decorators: [
+    (Story) => {
+      // Add custom CSS to override Storybook link colors
+      if (typeof document !== 'undefined') {
+        const styleId = 'storybook-link-color-override'
+        if (!document.getElementById(styleId)) {
+          const style = document.createElement('style')
+          style.id = styleId
+          style.textContent = `
+            /* Override Storybook's default bright blue link color */
+            .sbdocs a,
+            .sbdocs a:link,
+            .docs-story a,
+            .docs-story a:link {
+              color: #0e8168 !important;
+            }
+            .sbdocs a:hover,
+            .docs-story a:hover {
+              color: #075985 !important;
+            }
+            .sbdocs a:visited,
+            .docs-story a:visited {
+              color: #0369a1 !important;
+            }
+          `
+          document.head.appendChild(style)
+        }
+      }
+      return Story()
+    },
+  ],
 }
 
 export default preview
