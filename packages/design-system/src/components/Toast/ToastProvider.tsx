@@ -48,8 +48,14 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
     setToasts((prev) => prev.filter((toast) => toast.id !== id))
   }, [])
 
+  // Always render container to maintain consistent DOM position for focus order
+  // Toasts appear in order they were added (newest last), maintaining consistent tab order
   const toastContainer = (
-    <div className={`toast-container toast-container--${position}`} role="region" aria-label="Notifications">
+    <div 
+      className={`toast-container toast-container--${position}`} 
+      role="region" 
+      aria-label="Notifications"
+    >
       {toasts.map((toast) => (
         <Toast key={toast.id} {...toast} onDismiss={removeToast} />
       ))}

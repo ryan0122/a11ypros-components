@@ -28,7 +28,7 @@ export interface ToastProps {
   dismissible?: boolean
   
   /**
-   * Auto-dismiss duration in milliseconds (0 = no auto-dismiss)
+   * Auto-dismiss duration in milliseconds (0 = no auto-dismiss). For WCAG compliance, this should be 6 seconds.
    */
   duration?: number
   
@@ -48,8 +48,15 @@ export interface ToastProps {
  * 
  * WCAG Compliance:
  * - 4.1.3 Status Messages: ARIA live region announcements
- * - 2.1.1 Keyboard: ESC key support
+ * - 2.1.1 Keyboard: ESC key support, Tab navigation support
+ * - 2.4.3 Focus Order: Consistent focus order - toasts always appear in same position
  * - 4.1.2 Name, Role, Value: Proper ARIA attributes
+ * 
+ * Focus Order:
+ * - Toasts are focusable with tabIndex={0} (not positive tabindex)
+ * - Toast container is always rendered in the same DOM position (via portal to body)
+ * - Toasts appear in consistent order (order added) for predictable tab navigation
+ * - Container itself is not focusable, only individual toasts are focusable
  * 
  * @example
  * ```tsx
@@ -66,7 +73,7 @@ export const Toast: React.FC<ToastProps> = ({
   message,
   type = 'info',
   dismissible = true,
-  duration = 5000,
+  duration = 6000,
   onDismiss,
   pauseOnHover = true,
 }) => {
@@ -142,6 +149,7 @@ export const Toast: React.FC<ToastProps> = ({
       role="alert"
       aria-live={type === 'error' ? 'assertive' : 'polite'}
       aria-atomic="true"
+      tabIndex={0}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

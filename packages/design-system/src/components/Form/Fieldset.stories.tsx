@@ -29,7 +29,7 @@ import { Radio } from './Radio'
  * 
  * ## Features
  * 
- * - **Semantic grouping**: Uses proper \`<fieldset>\` and \`<legend>\` elements
+ * - **Semantic grouping**: Uses proper `<fieldset>` and `<legend>` elements
  * - **Visual legend**: Legend text provides context for the grouped fields
  * - **Hidden legend**: Option to hide legend visually while keeping it accessible
  * - **Required indicator**: Shows asterisk when fieldset contains required fields
@@ -89,9 +89,9 @@ type Story = StoryObj<typeof Fieldset>
 export const Default: Story = {
   render: () => (
     <Fieldset legend="Shipping Address">
-      <Input label="Street address" id="street" />
-      <Input label="City" id="city" />
-      <Input label="Zip code" id="zip" />
+      <Input label="Street address"/>
+      <Input label="City" />
+      <Input label="Zip code"/>
     </Fieldset>
   ),
 }

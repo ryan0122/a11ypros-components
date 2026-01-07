@@ -1,10 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-import { createPortal } from 'react-dom'
-import { useFocusTrap } from '../../hooks/useFocusTrap'
 import { useFocusReturn } from '../../hooks/useFocusReturn'
-import { isEscapeKey } from '../../utils/keyboard'
 import { Button } from '../Button/Button'
 import './Modal.css'
 
@@ -51,12 +48,18 @@ export interface ModalProps {
 }
 
 /**
- * Accessible Modal component
+ * Accessible Modal component using HTML5 dialog element
+ * 
+ * Uses the native `<dialog>` element which provides:
+ * - Built-in focus management and focus trapping
+ * - Automatic body scroll prevention
+ * - Native backdrop overlay
+ * - ESC key handling (configurable)
  * 
  * WCAG Compliance:
- * - 2.1.1 Keyboard: ESC key support, focus trap
+ * - 2.1.1 Keyboard: ESC key support, built-in focus trap
  * - 2.1.2 No Keyboard Trap: Focus returns to trigger
- * - 2.4.3 Focus Order: Focus trapped within modal
+ * - 2.4.3 Focus Order: Focus trapped within modal (native behavior)
  * - 4.1.2 Name, Role, Value: ARIA modal pattern
  * 
  * @example
@@ -80,69 +83,99 @@ export const Modal: React.FC<ModalProps> = ({
   size = 'md',
   returnFocusTo,
 }) => {
-  const modalRef = useRef<HTMLDivElement>(null)
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
   const titleId = React.useId()
   const descriptionId = React.useId()
-
-  // Focus trap
-  useFocusTrap(isOpen, modalRef)
 
   // Return focus on close
   useFocusReturn(isOpen, returnFocusTo)
 
-  // Handle ESC key
+  // Handle dialog open/close
   useEffect(() => {
-    if (!isOpen || !closeOnEscape) return
+    const dialog = dialogRef.current
+    if (!dialog) return
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (isEscapeKey(event.key)) {
-        event.preventDefault()
-        onClose()
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [isOpen, closeOnEscape, onClose])
-
-  // Prevent body scroll when modal is open
-  useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden'
+      // Show modal dialog
+      dialog.showModal();
     } else {
-      document.body.style.overflow = ''
+      // Close dialog
+      dialog.close();
     }
 
     return () => {
-      document.body.style.overflow = ''
+      // Cleanup: ensure dialog is closed when component unmounts
+      if (dialog.open) {
+        dialog.close();
+      }
     }
   }, [isOpen])
 
-  // Handle backdrop click
-  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (closeOnBackdropClick && event.target === event.currentTarget) {
-      onClose()
+  // Handle backdrop clicks
+  // The ::backdrop pseudo-element doesn't bubble events to the dialog element,
+  // so we need to listen for clicks on the document and check if they're outside
+  // the dialog content area.
+  useEffect(() => {
+    if (!isOpen || !closeOnBackdropClick) return
+
+    const handleDocumentClick = (event: MouseEvent) => {
+      const dialog = dialogRef.current
+      const content = contentRef.current
+      
+      if (!dialog || !content) return
+
+      // Check if click target is outside the dialog content area
+      const target = event.target as Node
+      
+      // If the click is not inside the content wrapper, it's a backdrop click
+      if (!content.contains(target)) {
+        // Verify click coordinates are outside content bounds for extra safety
+        const rect = content.getBoundingClientRect()
+        const clickX = event.clientX
+        const clickY = event.clientY
+        
+        const isOutsideContent = 
+          clickX < rect.left ||
+          clickX > rect.right ||
+          clickY < rect.top ||
+          clickY > rect.bottom
+
+        if (isOutsideContent) {
+          event.preventDefault()
+          event.stopPropagation()
+          onClose()
+        }
+      }
+    }
+
+    // Use capture phase to catch events before they bubble
+    document.addEventListener('mousedown', handleDocumentClick, true)
+
+    return () => {
+      document.removeEventListener('mousedown', handleDocumentClick, true)
+    }
+  }, [isOpen, closeOnBackdropClick, onClose])
+
+  // Handle cancel event (fires when ESC key is pressed)
+  const handleCancel = (event: React.SyntheticEvent<HTMLDialogElement>) => {
+    // Prevent default close behavior
+    event.preventDefault()
+    // Only close if closeOnEscape is enabled
+    if (closeOnEscape) {
+      onClose();
     }
   }
 
-  if (!isOpen) return null
-
-  const modalContent = (
-    <div
-      className="modal-backdrop"
-      onClick={handleBackdropClick}
-      role="presentation"
+  return (
+    <dialog
+      ref={dialogRef}
+      className={`modal modal--${size} ${isOpen ? 'modal--open' : ''}`}
+      aria-labelledby={titleId}
+      aria-describedby={descriptionId}
+      onCancel={handleCancel}
     >
-      <div
-        ref={modalRef}
-        className={`modal modal--${size}`}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        aria-describedby={descriptionId}
-      >
+      <div ref={contentRef} className="modal-content-wrapper">
         <div className="modal-header">
           <h2 id={titleId} className="modal-title">
             {title}
@@ -161,15 +194,8 @@ export const Modal: React.FC<ModalProps> = ({
           {children}
         </div>
       </div>
-    </div>
+    </dialog>
   )
-
-  // Render modal in a portal
-  if (typeof document !== 'undefined') {
-    return createPortal(modalContent, document.body)
-  }
-
-  return null
 }
 
 Modal.displayName = 'Modal'

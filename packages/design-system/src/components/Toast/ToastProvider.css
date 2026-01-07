@@ -6,6 +6,8 @@
   gap: var(--spacing-2, 0.5rem);
   padding: var(--spacing-4, 1rem);
   pointer-events: none;
+  /* Container is not focusable - only children (toasts) are focusable */
+  /* This ensures consistent focus order without interfering with tab navigation */
 }
 
 .toast-container > * {
