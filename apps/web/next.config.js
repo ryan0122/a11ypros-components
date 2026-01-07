@@ -7,6 +7,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Increase static page generation timeout (default is 60s)
+  staticPageGenerationTimeout: 120,
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,

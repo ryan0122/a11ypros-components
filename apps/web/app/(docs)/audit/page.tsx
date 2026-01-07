@@ -1,10 +1,15 @@
 'use client'
 
-import { useState } from 'react'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import { Button } from '@design-system/core'
 import './audit.css'
+
+// Dynamically import SyntaxHighlighter to avoid SSR/build issues
+const SyntaxHighlighter = dynamic(
+  () => import('react-syntax-highlighter').then((mod) => mod.Prism as any),
+  { ssr: false }
+)
 
 interface AuditIssue {
   wcagSC: string
@@ -25,6 +30,14 @@ export default function AuditPage() {
   const [result, setResult] = useState<AuditResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [expandedIssues, setExpandedIssues] = useState<Set<number>>(new Set())
+  const [codeStyle, setCodeStyle] = useState<any>(null)
+
+  // Load the style on client side only
+  useEffect(() => {
+    import('react-syntax-highlighter/dist/cjs/styles/prism').then((mod) => {
+      setCodeStyle(mod.vscDarkPlus)
+    })
+  }, [])
 
   const handleAudit = async () => {
     if (!code.trim()) {
@@ -198,18 +211,32 @@ export default function AuditPage() {
                                 {issue.codeSuggestion && (
                                   <div className="audit-issue-code">
                                     <strong>Code suggestion:</strong>
-                                    {/* @ts-expect-error - react-syntax-highlighter type issue */}
-                                    <SyntaxHighlighter
-                                      language="jsx"
-                                      style={vscDarkPlus}
-                                      customStyle={{
-                                        marginTop: '0.5rem',
+                                    {codeStyle ? (
+                                      // @ts-expect-error - react-syntax-highlighter type issues with dynamic import
+                                      <SyntaxHighlighter
+                                        language="jsx"
+                                        style={codeStyle}
+                                        customStyle={{
+                                          marginTop: '0.5rem',
+                                          borderRadius: '0.375rem',
+                                          fontSize: '0.875rem',
+                                        }}
+                                      >
+                                        {issue.codeSuggestion}
+                                      </SyntaxHighlighter>
+                                    ) : (
+                                      <pre style={{ 
+                                        padding: '1rem', 
+                                        background: '#1e1e1e', 
+                                        color: '#d4d4d4', 
                                         borderRadius: '0.375rem',
+                                        marginTop: '0.5rem',
                                         fontSize: '0.875rem',
-                                      }}
-                                    >
-                                      {issue.codeSuggestion}
-                                    </SyntaxHighlighter>
+                                        overflow: 'auto'
+                                      }}>
+                                        {issue.codeSuggestion}
+                                      </pre>
+                                    )}
                                   </div>
                                 )}
                               </div>
