@@ -4,7 +4,8 @@
   # Base directory for the build
   base = "."
   # Install dependencies, build Storybook, then build Next.js app
-  command = "npm install && npm run build-storybook && npm run build --workspace=apps/web"
+  # Note: yarn install will update lockfile if there are inconsistencies
+  command = "yarn install && yarn build-storybook && yarn workspace @apps/web build"
   # Publish directory - Next.js static export (includes Storybook in public/)
   publish = "apps/web/out"
 

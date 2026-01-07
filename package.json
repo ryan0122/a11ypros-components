@@ -7,8 +7,8 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=apps/web",
-    "build": "npm run build --workspace=apps/web",
+    "dev": "yarn workspace @apps/web dev",
+    "build": "yarn workspace @apps/web build",
     "storybook": "storybook dev -p 6006 --config-dir .storybook",
     "build-storybook": "storybook build --config-dir .storybook --output-dir apps/web/public/storybook-static"
   },
