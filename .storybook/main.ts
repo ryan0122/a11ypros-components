@@ -1,7 +1,9 @@
 import type { StorybookConfig } from '@storybook/react-vite'
 
 const config: StorybookConfig = {
-  stories: ['../packages/design-system/src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
+  stories: [
+    '../.storybook/welcome.mdx',
+    '../packages/design-system/src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-a11y',
@@ -12,6 +14,14 @@ const config: StorybookConfig = {
     options: {
       viteConfigPath: '.storybook/vite.config.ts',
     },
+  },
+  viteFinal: async (config) => {
+    config.define = {
+      ...config.define,
+      'process.env': {},
+      'process': { env: {} },
+    }
+    return config
   },
   docs: {
     autodocs: 'tag',

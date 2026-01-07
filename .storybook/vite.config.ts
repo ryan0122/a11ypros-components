@@ -2,6 +2,12 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   base: '/storybook-static/',
+  define: {
+    'process.env': {},
+    'process': {
+      env: {},
+    },
+  },
   build: {
     // Ensure assets use absolute paths
     assetsDir: 'assets',
