@@ -6,12 +6,12 @@
 # Storybook root - must come first to match /storybook before catch-all
 # 'unsafe-eval' must be in script-src (not default-src) for Storybook to work
 /storybook
-  Content-Security-Policy: default-src 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'unsafe-inline' data: http: https:; img-src data: blob: http: https:; font-src data: http: https:; connect-src ws: wss: blob: http: https:; worker-src blob: http: https:; frame-src http: https:;
+  Content-Security-Policy: default-src 'self' 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'self' 'unsafe-inline' data: http: https:; img-src 'self' data: blob: http: https:; font-src 'self' data: http: https:; connect-src 'self' ws: wss: blob: http: https:; worker-src 'self' blob: http: https:; frame-src 'self' http: https:; frame-ancestors 'self';
 
 # Storybook sub-paths
 /storybook/*
-  Content-Security-Policy: default-src 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'unsafe-inline' data: http: https:; img-src data: blob: http: https:; font-src data: http: https:; connect-src ws: wss: blob: http: https:; worker-src blob: http: https:; frame-src http: https:;
+  Content-Security-Policy: default-src 'self' 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'self' 'unsafe-inline' data: http: https:; img-src 'self' data: blob: http: https:; font-src 'self' data: http: https:; connect-src 'self' ws: wss: blob: http: https:; worker-src 'self' blob: http: https:; frame-src 'self' http: https:; frame-ancestors 'self';
 
 # Storybook static files
 /storybook-static/*
-  Content-Security-Policy: default-src 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'unsafe-inline' data: http: https:; img-src data: blob: http: https:; font-src data: http: https:; connect-src ws: wss: blob: http: https:; worker-src blob: http: https:; frame-src http: https:;
+  Content-Security-Policy: default-src 'self' 'unsafe-inline' data: blob: http: https: ws: wss:; script-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: http: https:; style-src 'self' 'unsafe-inline' data: http: https:; img-src 'self' data: blob: http: https:; font-src 'self' data: http: https:; connect-src 'self' ws: wss: blob: http: https:; worker-src 'self' blob: http: https:; frame-src 'self' http: https:; frame-ancestors 'self';
