@@ -11,7 +11,7 @@ import { Button } from '../Button/Button'
  * ## Usage
  * 
  * ```tsx
- * import { ToastProvider, useToast } from '@design-system/core'
+ * import { ToastProvider, useToast } from '@a11ypros/a11y-ui-components'
  * 
  * function MyComponent() {
  *   const { addToast } = useToast()

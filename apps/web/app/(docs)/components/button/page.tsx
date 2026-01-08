@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@design-system/core'
+import { Button } from '@a11ypros/a11y-ui-components'
 
 export default function ButtonPage() {
   return (

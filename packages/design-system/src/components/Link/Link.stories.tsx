@@ -10,7 +10,7 @@ import { Link } from './Link'
  * ## Usage
  * 
  * ```tsx
- * import { Link } from '@design-system/core'
+ * import { Link } from '@a11ypros/a11y-ui-components'
  * 
  * function MyComponent() {
  *   return (

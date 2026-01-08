@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  transpilePackages: ['@design-system/core'],
+  transpilePackages: ['@a11ypros/a11y-ui-components'],
   // Enable static export for Netlify
   output: 'export',
   // Disable image optimization for static export

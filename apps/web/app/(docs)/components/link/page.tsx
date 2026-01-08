@@ -1,6 +1,6 @@
 'use client'
 
-import { Link } from '@design-system/core'
+import { Link } from '@a11ypros/a11y-ui-components'
 
 export default function LinkPage() {
   return (

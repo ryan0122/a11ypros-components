@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Modal, Button } from '@design-system/core'
+import { Modal, Button } from '@a11ypros/a11y-ui-components'
 
 export default function ModalPage() {
   const [isOpen, setIsOpen] = useState(false)

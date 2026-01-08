@@ -1,7 +1,7 @@
 'use client'
 
-import { ToastProvider, useToast } from '@design-system/core'
-import { Button } from '@design-system/core'
+import { ToastProvider, useToast } from '@a11ypros/a11y-ui-components'
+import { Button } from '@a11ypros/a11y-ui-components'
 
 function ToastDemo() {
   const { addToast } = useToast()

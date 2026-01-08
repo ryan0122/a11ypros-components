@@ -11,7 +11,7 @@ import { DataTable } from './DataTable'
  * ## Usage
  * 
  * ```tsx
- * import { DataTable } from '@design-system/core'
+ * import { DataTable } from '@a11ypros/a11y-ui-components'
  * 
  * const data = [
  *   { id: '1', name: 'John Doe', email: 'john@example.com' },

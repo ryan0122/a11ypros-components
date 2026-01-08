@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Input, Textarea, Select, Checkbox, Radio, Fieldset, Label } from '@design-system/core'
+import { Input, Textarea, Select, Checkbox, Radio, Fieldset, Label } from '@a11ypros/a11y-ui-components'
 
 export default function FormPage() {
   const [email, setEmail] = useState('')

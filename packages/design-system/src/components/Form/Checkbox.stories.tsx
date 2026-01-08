@@ -11,7 +11,7 @@ import { Checkbox } from './Checkbox'
  * ## Usage
  * 
  * ```tsx
- * import { Checkbox } from '@design-system/core'
+ * import { Checkbox } from '@a11ypros/a11y-ui-components'
  * 
  * function MyComponent() {
  *   const [checked, setChecked] = useState(false)

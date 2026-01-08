@@ -11,7 +11,7 @@ import { Select } from './Select'
  * ## Usage
  * 
  * ```tsx
- * import { Select } from '@design-system/core'
+ * import { Select } from '@a11ypros/a11y-ui-components'
  * 
  * function MyComponent() {
  *   const [value, setValue] = useState('')

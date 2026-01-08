@@ -11,7 +11,7 @@ import { Textarea } from './Textarea'
  * ## Usage
  * 
  * ```tsx
- * import { Textarea } from '@design-system/core'
+ * import { Textarea } from '@a11ypros/a11y-ui-components'
  * 
  * function MyComponent() {
  *   return (

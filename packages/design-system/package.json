@@ -1,15 +1,54 @@
 {
-  "name": "@design-system/core",
+  "name": "@a11ypros/a11y-ui-components",
   "version": "1.0.0",
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "description": "An accessibility-first React UI component library built with WCAG 2.1/2.2 compliance",
+  "keywords": [
+    "react",
+    "accessibility",
+    "a11y",
+    "wcag",
+    "design-system",
+    "components",
+    "typescript"
+  ],
+  "author": "Ryan Mack <ryan@a11ypros.com>",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "module": "./dist/index.js",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles": {
+      "import": "./dist/styles/global.css"
+    },
+    "./styles/components": {
+      "import": "./dist/styles/components.css"
+    },
+    "./package.json": "./package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ryan0122/a11ypros-components.git",
+    "directory": "packages/design-system"
+  },
   "scripts": {
+    "build": "tsc && node scripts/copy-css.js",
+    "prepublishOnly": "npm run build",
     "storybook": "cd ../.. && npm run storybook",
     "build-storybook": "cd ../.. && npm run build-storybook"
   },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^7.6.17",
@@ -24,10 +63,6 @@
     "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
     "typescript": "^5.3.3"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
   }
 }
 

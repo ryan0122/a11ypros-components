@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import { Button } from '@design-system/core'
+import { Button } from '@a11ypros/a11y-ui-components'
 import './audit.css'
 
 // Dynamically import SyntaxHighlighter to avoid SSR/build issues

@@ -14,7 +14,7 @@ import { Radio } from './Radio'
  * ## Usage
  * 
  * ```tsx
- * import { Fieldset, Input } from '@design-system/core'
+ * import { Fieldset, Input } from '@a11ypros/a11y-ui-components'
  * 
  * function MyComponent() {
  *   return (

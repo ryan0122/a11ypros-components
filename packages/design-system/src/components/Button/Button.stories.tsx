@@ -10,7 +10,7 @@ import { Button } from './Button'
  * ## Usage
  * 
  * ```tsx
- * import { Button } from '@design-system/core'
+ * import { Button } from '@a11ypros/a11y-ui-components'
  * 
  * function MyComponent() {
  *   return (

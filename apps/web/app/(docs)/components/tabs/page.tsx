@@ -1,6 +1,6 @@
 'use client'
 
-import { Tabs } from '@design-system/core'
+import { Tabs } from '@a11ypros/a11y-ui-components'
 
 export default function TabsPage() {
   return (

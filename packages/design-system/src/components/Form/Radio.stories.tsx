@@ -11,7 +11,7 @@ import { Radio } from './Radio'
  * ## Usage
  * 
  * ```tsx
- * import { Radio } from '@design-system/core'
+ * import { Radio } from '@a11ypros/a11y-ui-components'
  * 
  * function MyComponent() {
  *   const [value, setValue] = useState('')

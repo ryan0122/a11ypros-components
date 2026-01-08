@@ -12,7 +12,7 @@ import { Button } from '../Button/Button'
  * ## Usage
  * 
  * ```tsx
- * import { Modal } from '@design-system/core'
+ * import { Modal } from '@a11ypros/a11y-ui-components'
  * import { useState } from 'react'
  * 
  * function MyComponent() {

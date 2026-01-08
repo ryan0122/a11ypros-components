@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Button, Link as DesignSystemLink } from '@design-system/core'
+import { Button, Link as DesignSystemLink } from '@a11ypros/a11y-ui-components'
 
 export default function ComponentsPage() {
   return (

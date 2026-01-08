@@ -90,7 +90,7 @@ The Next.js app will be available at `http://localhost:3000` and Storybook at `h
 ### Usage Example
 
 ```tsx
-import { Button, Input, Modal } from '@design-system/core'
+import { Button, Input, Modal } from '@a11ypros/a11y-ui-components'
 
 function MyComponent() {
   const [isOpen, setIsOpen] = useState(false)

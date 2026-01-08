@@ -10,7 +10,7 @@ import { Input } from './Input'
  * ## Usage
  * 
  * ```tsx
- * import { Input } from '@design-system/core'
+ * import { Input } from '@a11ypros/a11y-ui-components'
  * 
  * function MyComponent() {
  *   return (

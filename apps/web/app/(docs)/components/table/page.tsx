@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { DataTable } from '@design-system/core'
+import { DataTable } from '@a11ypros/a11y-ui-components'
 
 const sampleData = [
   { id: '1', name: 'John Doe', email: 'john@example.com', role: 'Admin' },
