@@ -2,6 +2,12 @@
   min-height: 100vh;
   padding: var(--spacing-6, 1.5rem);
   background-color: var(--color-background-secondary, #fafafa);
+
+
+  /* Override design system colors to match your brand */
+  --color-primary-500: #0e8168; /* Your primary teal color */
+  --color-primary-600: #075985; /* Darker shade for hover */
+  --color-primary-700: #0369a1; /* Even darker for active */
 }
 
 .audit-container {
@@ -11,6 +17,18 @@
 
 .audit-header {
   margin-bottom: var(--spacing-8, 2rem);
+}
+
+.audit-header-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-4, 1rem);
+  margin-bottom: var(--spacing-4, 1rem);
+}
+
+.audit-header-logo {
+  flex-shrink: 0;
 }
 
 .audit-header h1 {
@@ -54,6 +72,21 @@
   border-radius: 0.375rem;
   resize: vertical;
   transition: border-color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
+}
+
+.audit-page .btn--primary {
+  background-color: var(--color-primary-500);
+  border-color: var(--color-primary-500);
+}
+
+.audit-page .btn--primary:hover:not(:disabled) {
+  background-color: var(--color-primary-600);
+  border-color: var(--color-primary-600);
+}
+
+.audit-page .btn--primary:focus-visible {
+  outline-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px rgba(14, 129, 104, 0.2); /* Adjust to match your primary */
 }
 
 .audit-textarea:focus {
