@@ -47,7 +47,6 @@ An opinionated, accessibility-first design system built with React, TypeScript, 
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd PORTFOLIO
 ```
 
 2. Install dependencies:
