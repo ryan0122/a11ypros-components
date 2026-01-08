@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { Button } from '@a11ypros/a11y-ui-components'
 import './audit.css'
 
@@ -114,7 +115,19 @@ export default function AuditPage() {
     <main className="audit-page">
       <div className="audit-container">
         <header className="audit-header">
+          <div className="audit-header-top">
           <h1>AI Accessibility Audit Assistant</h1>
+            <div className="audit-header-logo">
+                <Image
+                  src="/logo.png"
+                  alt="A11y Pros Logo"
+                  width={150}
+                  height={25}
+                  priority
+                />
+            </div>
+           
+          </div>
           <p>
             Paste your JSX code snippet below to get an AI-powered accessibility review
             based on WCAG 2.1 and 2.2 guidelines.
@@ -143,6 +156,7 @@ export default function AuditPage() {
             disabled={!code.trim() || loading}
             variant="primary"
             size="lg"
+            className='audit-button'
           >
             {loading ? 'Auditing...' : 'Run Accessibility Audit'}
           </Button>
