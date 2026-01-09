@@ -6,13 +6,17 @@ import { Meta } from '@storybook/blocks';
 
 Welcome to our **accessibility-first React UI component library**. This design system provides a comprehensive collection of fully accessible components built with React, TypeScript, and modern web standards.
 
-[View on GitHub](https://github.com/ryan0122/a11ypros-components) • [Live Documentation](https://ui.a11ypros.com)
+[View on GitHub](https://github.com/ryan0122/a11ypros-components) • [Npm Package](https://www.npmjs.com/package/@a11ypros/a11y-ui-components)
 
 ## About This Design System
 
 This design system is **authored with accessibility in mind by a certified WAS (Web Accessibility Specialist)**. Every component has been carefully crafted to meet WCAG 2.1/2.2 Level AA standards, ensuring that your applications are usable by everyone, regardless of their abilities or the assistive technologies they use.
 
 **Note**: Currently, English is the only supported language for screen reader text and ARIA labels. Internationalization (i18n) support is coming soon.
+
+### Exploring Components
+
+Browse the component stories in the sidebar to explore each component's:
 
 ### Key Features
 
@@ -47,6 +51,42 @@ The following components are currently in development and will be available soon
 - **Combobox**: Accessible autocomplete/combobox component with ARIA 1.2 patterns
 
 ## Getting Started
+
+### Installation
+
+Install the component library via npm:
+
+```bash
+npm i @a11ypros/a11y-ui-components
+```
+
+Or using yarn:
+
+```bash
+yarn add @a11ypros/a11y-ui-components
+```
+
+Or using pnpm:
+
+```bash
+pnpm add @a11ypros/a11y-ui-components
+```
+
+### Usage
+
+Once installed, you can import and use components in your React application:
+
+```tsx
+import { Button, Modal, DataTable } from '@a11ypros/a11y-ui-components';
+
+function App() {
+  return (
+    <Button variant="primary" size="medium">
+      Click me
+    </Button>
+  );
+}
+```
 
 Browse the component stories in the sidebar to explore each component's:
 - Usage examples
