@@ -182,8 +182,7 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
     // Clone children to add toggle handler and refs
     const enhancedChildren = React.Children.map(children, (child, index) => {
       if (React.isValidElement(child) && child.type === AccordionItem) {
-        return React.cloneElement(child, {
-          ...child.props,
+        return React.cloneElement(child as React.ReactElement<any>, {
           ref: (el: HTMLDetailsElement) => {
             detailsRefs.current[index] = el
             // Forward ref if child has one
@@ -192,7 +191,7 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
             }
           },
           onToggle: handleToggle,
-        } as any)
+        })
       }
       return child
     })
