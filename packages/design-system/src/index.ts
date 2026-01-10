@@ -2,6 +2,7 @@
 export * from './tokens';
 
 // Components
+export * from './components/Accordion/Accordion';
 export * from './components/Button/Button';
 export * from './components/Link/Link';
 export * from './components/Modal/Modal';

@@ -1,0 +1,117 @@
+/* Accordion container */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2, 0.5rem);
+  width: 100%;
+}
+
+/* Accordion item (details element) */
+.accordion-item {
+  background-color: var(--color-background-default, #ffffff);
+  border: 1px solid var(--color-border-default, #e5e5e5);
+  border-radius: 0.5rem;
+  transition: border-color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
+}
+
+.accordion-item:hover {
+  border-color: var(--color-border-hover, #d4d4d4);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .accordion-item {
+    transition: none;
+  }
+}
+
+/* Accordion summary (clickable header) */
+.accordion-item__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3, 0.75rem);
+  padding: var(--spacing-4, 1rem);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-text-primary, #171717);
+  transition: background-color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
+}
+
+/* Remove default marker */
+.accordion-item__summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-item__summary::marker {
+  display: none;
+}
+
+.accordion-item__summary:hover {
+  background-color: var(--color-background-secondary, #fafafa);
+}
+
+/* Focus styles - WCAG 2.4.7 Focus Visible */
+.accordion-item__summary:focus-visible {
+  outline: 2px solid var(--color-border-focus, #0ea5e9);
+  outline-offset: -2px;
+  border-radius: 0.5rem;
+}
+
+.accordion-item__summary:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .accordion-item {
+    border-width: 2px;
+  }
+  
+  .accordion-item__summary:focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* Title text */
+.accordion-item__title {
+  flex: 1;
+  text-align: left;
+  font-size: var(--font-size-base, 1rem);
+  line-height: var(--line-height-normal, 1.5);
+}
+
+/* Chevron icon */
+.accordion-item__icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-text-secondary, #737373);
+  transition: transform var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
+}
+
+/* Rotate icon when open */
+.accordion-item[open] .accordion-item__icon {
+  transform: rotate(180deg);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .accordion-item__icon {
+    transition: none;
+  }
+  
+  .accordion-item[open] .accordion-item__icon {
+    transform: none;
+  }
+}
+
+/* Content area */
+.accordion-item__content {
+  padding: 0 var(--spacing-4, 1rem) var(--spacing-4, 1rem);
+  color: var(--color-text-secondary, #525252);
+  font-size: var(--font-size-base, 1rem);
+  line-height: var(--line-height-relaxed, 1.625);
+}

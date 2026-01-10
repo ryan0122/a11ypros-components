@@ -20,6 +20,8 @@ Browse the component stories in the sidebar to explore each component's:
 
 ### Key Features
 
+- **React 18+ Support**: Compatible with React 18.2.0 and React 19.0.0+
+- **Light & Dark Mode**: Built-in theming support with semantic color tokens for light and dark modes
 - **Fully Accessible Components**: All React UI components are fully accessible, featuring proper ARIA attributes, keyboard navigation, and screen reader support
 - **WCAG 2.1/2.2 Compliant**: Components follow accessibility best practices and meet WCAG Level AA standards
 - **Keyboard Navigation**: Complete keyboard support for all interactive elements
@@ -167,12 +169,57 @@ You can override the default design tokens by customizing CSS custom properties 
 }
 ```
 
+### Light & Dark Mode Theming
+
+The design system includes built-in support for light and dark modes using semantic color tokens. Toggle between themes by setting the `data-theme` attribute:
+
+```html
+<!-- Light mode (default) -->
+<html data-theme="light">
+
+<!-- Dark mode -->
+<html data-theme="dark">
+```
+
+Implement a theme toggle in your application:
+
+```tsx
+const ThemeToggle = () => {
+  const [theme, setTheme] = useState('light');
+  
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
+  
+  return (
+    <button onClick={toggleTheme}>
+      Switch to {theme === 'light' ? 'dark' : 'light'} mode
+    </button>
+  );
+};
+```
+
+**Theme-Aware Semantic Colors:**
+
+The system uses semantic color variables that automatically adapt to the current theme:
+- `--color-text-primary`: Main text color (dark in light mode, light in dark mode)
+- `--color-text-secondary`: Secondary text color
+- `--color-background-default`: Primary background
+- `--color-background-secondary`: Secondary background (cards, hover states)
+- `--color-link`: Link color (maintains WCAG AA contrast in both themes)
+- `--color-border-default`: Border colors
+
+All color combinations are tested to meet WCAG AA contrast requirements (4.5:1) in both light and dark modes.
+
 **Important**: When overriding colors, ensure your custom colors maintain WCAG AA contrast ratios:
 - **4.5:1** minimum for normal text
 - **3:1** minimum for large text (18pt+) and UI components
 
 **Available CSS Custom Properties:**
-- Colors: `--color-primary-[50-900]`, `--color-neutral-[50-900]`, `--color-success-[500-700]`, etc.
+- Semantic Colors (theme-aware): `--color-text-primary`, `--color-text-secondary`, `--color-background-default`, `--color-background-secondary`, `--color-link`, `--color-border-default`, `--color-border-hover`, `--color-border-focus`
+- Base Colors: `--color-primary-[50-900]`, `--color-neutral-[50-900]`, `--color-success-[500-700]`, etc.
 - Spacing: `--spacing-[0,1,2,3,4,5,6,8,10,12,16,20,24,32]`
 - Typography: `--font-size-[xs,sm,base,lg,xl,2xl,3xl,4xl]`, `--font-weight-[normal,medium,semibold,bold]`
 - Motion: `--duration-[fast,normal,slow]`
