@@ -95,6 +95,88 @@ Browse the component stories in the sidebar to explore each component's:
 - WCAG compliance information
 - Props and API documentation
 
+### Customization with Design Tokens
+
+The library exports design tokens and utility functions for customizing your theme:
+
+```tsx
+import { colors, spacing, typography, breakpoints, motion } from '@a11ypros/a11y-ui-components';
+import { generateFocusRing, trapFocus, announceToScreenReader } from '@a11ypros/a11y-ui-components';
+
+// Use design tokens in your custom components
+const MyComponent = () => (
+  <div style={{ 
+    color: colors.primary[600], 
+    padding: spacing[4],
+    fontSize: typography.size.base 
+  }}>
+    Custom styled component with design tokens
+  </div>
+);
+
+// Use accessibility utilities
+const MyModal = () => {
+  const modalRef = useRef(null);
+  
+  useEffect(() => {
+    if (modalRef.current) {
+      trapFocus(modalRef.current);
+      announceToScreenReader('Modal opened');
+    }
+  }, []);
+  
+  return <div ref={modalRef}>...</div>;
+};
+```
+
+**Available Tokens:**
+- **Colors**: WCAG AA compliant color palettes (primary, neutral, success, warning, error)
+- **Spacing**: Consistent spacing scale based on 4px/8px grid
+- **Typography**: Font sizes, weights, and line heights
+- **Breakpoints**: Responsive design breakpoints
+- **Motion**: Animation durations respecting `prefers-reduced-motion`
+
+**Utility Functions:**
+- **ARIA helpers**: `announceToScreenReader`, `generateAriaLabel`
+- **Focus management**: `trapFocus`, `restoreFocus`, `generateFocusRing`
+- **Keyboard**: `handleEscape`, `handleArrowKeys`
+
+All tokens maintain WCAG 2.1/2.2 Level AA compliance for color contrast and spacing.
+
+### Overriding Design Tokens
+
+You can override the default design tokens by customizing CSS custom properties in your application:
+
+```css
+/* In your global CSS file */
+:root {
+  /* Override primary color */
+  --color-primary-500: #your-brand-color;
+  --color-primary-600: #your-darker-shade;
+  --color-primary-700: #your-darkest-shade;
+  
+  /* Override spacing */
+  --spacing-4: 1.5rem; /* default is 1rem */
+  
+  /* Override typography */
+  --font-size-base: 1.125rem; /* default is 1rem */
+  --font-weight-bold: 600; /* default is 700 */
+  
+  /* Override motion */
+  --duration-normal: 250ms; /* default is 200ms */
+}
+```
+
+**Important**: When overriding colors, ensure your custom colors maintain WCAG AA contrast ratios:
+- **4.5:1** minimum for normal text
+- **3:1** minimum for large text (18pt+) and UI components
+
+**Available CSS Custom Properties:**
+- Colors: `--color-primary-[50-900]`, `--color-neutral-[50-900]`, `--color-success-[500-700]`, etc.
+- Spacing: `--spacing-[0,1,2,3,4,5,6,8,10,12,16,20,24,32]`
+- Typography: `--font-size-[xs,sm,base,lg,xl,2xl,3xl,4xl]`, `--font-weight-[normal,medium,semibold,bold]`
+- Motion: `--duration-[fast,normal,slow]`
+
 ## Accessibility First
 
 As a **certified WAS web accessibility specialist**, I've ensured that every component in this library:

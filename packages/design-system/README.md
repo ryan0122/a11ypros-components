@@ -110,6 +110,130 @@ function App() {
 
 Browse all components, see live examples, and explore accessibility features in our interactive Storybook documentation.
 
+## Customization with Design Tokens
+
+The library exports design tokens and utility functions for building custom components while maintaining accessibility standards:
+
+```tsx
+import { 
+  colors, 
+  spacing, 
+  typography, 
+  breakpoints, 
+  motion 
+} from '@a11ypros/a11y-ui-components';
+
+// Use tokens in your custom components
+const CustomCard = () => (
+  <div style={{
+    backgroundColor: colors.neutral[50],
+    padding: spacing[4],
+    borderRadius: spacing[2],
+    fontSize: typography.size.base,
+  }}>
+    Custom component using design tokens
+  </div>
+);
+```
+
+### Available Design Tokens
+
+- **colors**: WCAG AA compliant color palettes
+  - `primary`, `neutral`, `success`, `warning`, `error`
+  - All colors meet 4.5:1 contrast ratio on appropriate backgrounds
+- **spacing**: Consistent spacing scale (4px/8px grid system)
+- **typography**: Font sizes, weights, line heights
+- **breakpoints**: Responsive design breakpoints
+- **motion**: Animation durations (respects `prefers-reduced-motion`)
+
+### Accessibility Utilities
+
+Import utility functions to enhance your custom components:
+
+```tsx
+import { 
+  announceToScreenReader,
+  generateAriaLabel,
+  trapFocus,
+  restoreFocus,
+  generateFocusRing,
+  handleEscape,
+  handleArrowKeys
+} from '@a11ypros/a11y-ui-components';
+
+// Example: Custom modal with focus trap
+const CustomModal = ({ isOpen, onClose }) => {
+  const modalRef = useRef(null);
+  
+  useEffect(() => {
+    if (isOpen && modalRef.current) {
+      trapFocus(modalRef.current);
+      announceToScreenReader('Dialog opened');
+    }
+  }, [isOpen]);
+  
+  return (
+    <div ref={modalRef} role="dialog" aria-modal="true">
+      {/* Modal content */}
+    </div>
+  );
+};
+```
+
+All utilities maintain WCAG compliance and follow accessibility best practices.
+
+### Overriding Design Tokens
+
+You can override the default design tokens by customizing CSS custom properties in your application:
+
+```css
+/* In your global CSS file */
+:root {
+  /* Override primary color */
+  --color-primary-500: #your-brand-color;
+  --color-primary-600: #your-darker-shade;
+  --color-primary-700: #your-darkest-shade;
+  
+  /* Override spacing */
+  --spacing-4: 1.5rem; /* default is 1rem */
+  
+  /* Override typography */
+  --font-size-base: 1.125rem; /* default is 1rem */
+  --font-weight-bold: 600; /* default is 700 */
+  
+  /* Override motion */
+  --duration-normal: 250ms; /* default is 200ms */
+}
+```
+
+**Important**: When overriding colors, ensure your custom colors maintain WCAG AA contrast ratios:
+- **4.5:1** minimum for normal text
+- **3:1** minimum for large text (18pt+) and UI components
+
+You can test contrast ratios using tools like:
+- [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+- [Accessible Colors](https://accessible-colors.com/)
+
+### Available CSS Custom Properties
+
+**Colors:**
+- `--color-primary-[50-900]`
+- `--color-neutral-[50-900]`
+- `--color-success-[500-700]`
+- `--color-warning-[500-700]`
+- `--color-error-[500-700]`
+
+**Spacing:**
+- `--spacing-[0,1,2,3,4,5,6,8,10,12,16,20,24,32]`
+
+**Typography:**
+- `--font-size-[xs,sm,base,lg,xl,2xl,3xl,4xl]`
+- `--font-weight-[normal,medium,semibold,bold]`
+- `--line-height-[tight,normal,relaxed]`
+
+**Motion:**
+- `--duration-[fast,normal,slow]`
+
 ## Usage Examples
 
 ### Form with Validation

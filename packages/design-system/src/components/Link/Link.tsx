@@ -98,16 +98,11 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         rel={relAttributes || undefined}
         target={linkTarget}
         className={classes}
-        aria-label={ariaLabel}
+        aria-label={ariaLabel ? `${ariaLabel} (opens in new tab)` : isExternal && linkTarget === '_blank' ? `${children} (opens in new tab)` : undefined}
         {...props}
       >
         {children}
-        {isExternal && (
-          <span className="link__external-icon" aria-hidden="true">
-            {' '}
-            <span aria-label="(opens in new tab)">↗</span>
-          </span>
-        )}
+        {isExternal && <span className="link__external-icon" aria-hidden="true">{' '}↗</span>}
       </a>
     )
   }
