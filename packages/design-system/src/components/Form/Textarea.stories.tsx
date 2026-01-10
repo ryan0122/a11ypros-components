@@ -99,6 +99,15 @@ const meta: Meta<typeof Textarea> = {
   title: 'Components/Form/Textarea',
   component: Textarea,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the textarea',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta

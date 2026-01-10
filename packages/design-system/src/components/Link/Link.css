@@ -1,6 +1,6 @@
 /* Link component styles */
 .link {
-  color: var(--color-primary-700, #0369a1);
+  color: var(--color-link, #0369a1);
   text-decoration: underline;
   text-underline-offset: 0.125em;
   transition: color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
@@ -26,7 +26,7 @@
 
 /* Hover state */
 .link:hover:not(:disabled) {
-  color: var(--color-primary-800, #075985);
+  color: var(--color-link-hover, #075985);
   text-decoration-thickness: 2px;
 }
 

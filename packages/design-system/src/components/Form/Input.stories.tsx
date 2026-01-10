@@ -97,6 +97,15 @@ const meta: Meta<typeof Input> = {
   title: 'Components/Form/Input',
   component: Input,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the input',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta

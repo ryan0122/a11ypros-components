@@ -4,6 +4,8 @@ An opinionated, accessibility-first design system built with React, TypeScript, 
 
 ## Features
 
+- **React 18+ Support**: Compatible with React 18.2.0 and React 19.0.0+
+- **Light & Dark Mode**: Built-in theming support with semantic color tokens for light and dark modes
 - **WCAG 2.1/2.2 Compliant Components**: All components follow accessibility best practices
 - **Design Token System**: Consistent spacing, colors, typography, and motion tokens
 - **Keyboard Navigation**: Full keyboard support for all interactive elements
@@ -163,6 +165,48 @@ The design system uses CSS custom properties for theming:
 /* Motion */
 --motion-duration-normal: 200ms;
 ```
+
+### Light & Dark Mode Theming
+
+The design system includes built-in support for light and dark modes using semantic color tokens. Toggle between themes by setting the `data-theme` attribute:
+
+```html
+<!-- Light mode (default) -->
+<html data-theme="light">
+
+<!-- Dark mode -->
+<html data-theme="dark">
+```
+
+Implement a theme toggle:
+
+```tsx
+const ThemeToggle = () => {
+  const [theme, setTheme] = useState('light');
+  
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
+  
+  return (
+    <button onClick={toggleTheme}>
+      Switch to {theme === 'light' ? 'dark' : 'light'} mode
+    </button>
+  );
+};
+```
+
+**Theme-Aware Semantic Colors:**
+- `--color-text-primary`: Main text color (adapts to theme)
+- `--color-text-secondary`: Secondary text color
+- `--color-background-default`: Primary background
+- `--color-background-secondary`: Secondary background
+- `--color-link`: Link color (maintains WCAG AA contrast)
+- `--color-border-default`: Border colors
+
+All color combinations meet WCAG AA contrast requirements (4.5:1) in both light and dark modes.
 
 ## Storybook
 

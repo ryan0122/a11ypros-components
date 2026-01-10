@@ -97,6 +97,15 @@ const meta: Meta<typeof Checkbox> = {
   title: 'Components/Form/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the checkbox',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta

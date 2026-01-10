@@ -62,6 +62,11 @@ export interface DataTableProps<T> {
    * Caption for the table (required for accessibility)
    */
   caption?: string
+  
+  /**
+   * Custom class name
+   */
+  className?: string
 }
 
 /**
@@ -93,6 +98,7 @@ export function DataTable<T extends Record<string, any>>({
   sortConfig,
   onSortChange,
   caption,
+  className = '',
 }: DataTableProps<T>) {
   const [focusedRow, setFocusedRow] = useState<string | null>(null)
   const tableRef = useRef<HTMLTableElement>(null)
@@ -183,7 +189,7 @@ export function DataTable<T extends Record<string, any>>({
   const someSelected = selectedRows.length > 0 && selectedRows.length < data.length
 
   return (
-    <div className="data-table-wrapper">
+    <div className={['data-table-wrapper', className].filter(Boolean).join(' ')}>
       <table
         ref={tableRef}
         className="data-table"

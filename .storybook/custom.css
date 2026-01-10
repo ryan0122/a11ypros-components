@@ -1,5 +1,16 @@
 /* Custom Storybook styles */
 
+/* Theme backgrounds for docs view */
+[data-theme="dark"] .docs-story,
+[data-theme="dark"] .sbdocs-preview {
+  background-color: #171717 !important;
+}
+
+[data-theme="light"] .docs-story,
+[data-theme="light"] .sbdocs-preview {
+  background-color: #ffffff !important;
+}
+
 /* Override Storybook's default bright blue link color */
 .sbdocs a,
 .sbdocs a:link,
@@ -65,5 +76,10 @@ button[aria-label*="Reset"],
   background-color: #f0f9ff !important;
   color: #0e8168 !important;
   border-left-color: #0e8168 !important;
+}
+
+.sb-bar button:hover {
+  color: #000000 !important;
+  background-color: #f5f5f5;;
 }
 

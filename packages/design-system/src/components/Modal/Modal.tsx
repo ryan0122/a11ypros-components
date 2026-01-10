@@ -45,6 +45,11 @@ export interface ModalProps {
    * Element to return focus to when modal closes
    */
   returnFocusTo?: HTMLElement | null
+  
+  /**
+   * Custom class name
+   */
+  className?: string
 }
 
 /**
@@ -82,6 +87,7 @@ export const Modal: React.FC<ModalProps> = ({
   closeOnEscape = true,
   size = 'md',
   returnFocusTo,
+  className = '',
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
@@ -170,7 +176,7 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     <dialog
       ref={dialogRef}
-      className={`modal modal--${size} ${isOpen ? 'modal--open' : ''}`}
+      className={`modal modal--${size} ${isOpen ? 'modal--open' : ''} ${className}`.trim()}
       aria-labelledby={titleId}
       aria-describedby={descriptionId}
       onCancel={handleCancel}
