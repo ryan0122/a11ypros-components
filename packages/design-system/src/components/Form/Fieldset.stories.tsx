@@ -77,6 +77,15 @@ const meta: Meta<typeof Fieldset> = {
   title: 'Components/Form/Fieldset',
   component: Fieldset,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the fieldset',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta

@@ -86,6 +86,15 @@ const meta: Meta<typeof Link> = {
   title: 'Components/Link',
   component: Link,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the link',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta

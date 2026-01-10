@@ -51,6 +51,11 @@ export interface TabsProps {
    */
   'aria-label'?: string
   'aria-labelledby'?: string
+  
+  /**
+   * Custom class name
+   */
+  className?: string
 }
 
 /**
@@ -81,6 +86,7 @@ export const Tabs: React.FC<TabsProps> = ({
   activationMode = 'automatic',
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
+  className = '',
 }) => {
   const initialSelectedId = defaultSelectedId || items[0]?.id
   const [internalSelectedId, setInternalSelectedId] = useState(initialSelectedId)
@@ -186,7 +192,7 @@ export const Tabs: React.FC<TabsProps> = ({
   const selectedTab = items.find((item) => item.id === selectedId)
 
   return (
-    <div className={`tabs tabs--${orientation}`}>
+    <div className={['tabs', `tabs--${orientation}`, className].filter(Boolean).join(' ')}>
       <div
         className="tabs-list"
         role="tablist"

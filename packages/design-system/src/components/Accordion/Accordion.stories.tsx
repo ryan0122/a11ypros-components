@@ -13,6 +13,15 @@ const meta = {
     },
   },
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the accordion',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 } satisfies Meta<typeof Accordion>;
 
 export default meta;

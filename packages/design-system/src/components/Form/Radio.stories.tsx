@@ -111,6 +111,15 @@ const meta: Meta<typeof Radio> = {
   title: 'Components/Form/Radio',
   component: Radio,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the radio button',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta

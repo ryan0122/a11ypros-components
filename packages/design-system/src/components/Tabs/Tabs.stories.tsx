@@ -102,6 +102,15 @@ const meta: Meta<typeof Tabs> = {
   title: 'Components/Tabs',
   component: Tabs,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the tabs',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta

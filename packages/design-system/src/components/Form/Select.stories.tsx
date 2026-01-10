@@ -111,6 +111,15 @@ const meta: Meta<typeof Select> = {
   title: 'Components/Form/Select',
   component: Select,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the select',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta

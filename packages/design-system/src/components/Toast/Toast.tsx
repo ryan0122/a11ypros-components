@@ -41,6 +41,11 @@ export interface ToastProps {
    * Pause auto-dismiss on hover
    */
   pauseOnHover?: boolean
+  
+  /**
+   * Custom class name
+   */
+  className?: string
 }
 
 /**
@@ -76,6 +81,7 @@ export const Toast: React.FC<ToastProps> = ({
   duration = 6000,
   onDismiss,
   pauseOnHover = true,
+  className = '',
 }) => {
   const [isPaused, setIsPaused] = useState(false)
   const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
@@ -139,6 +145,7 @@ export const Toast: React.FC<ToastProps> = ({
   const classes = [
     'toast',
     `toast--${type}`,
+    className,
   ]
     .filter(Boolean)
     .join(' ')

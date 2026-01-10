@@ -110,6 +110,15 @@ const meta: Meta<typeof Modal> = {
   title: 'Components/Modal',
   component: Modal,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the modal',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta

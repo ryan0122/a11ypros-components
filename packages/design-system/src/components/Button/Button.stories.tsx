@@ -116,6 +116,18 @@ const meta: Meta<typeof Button> = {
     },
     disabled: {
       control: 'boolean',
+      description: 'Whether the button is disabled',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'false' }
+      }
+    },
+    className: {
+      control: 'text',
+      description: 'Custom class name for the button',
+      table: {
+        type: { summary: 'string' },
+      }
     },
   },
 }

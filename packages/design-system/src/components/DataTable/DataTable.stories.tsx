@@ -111,6 +111,15 @@ const meta: Meta<typeof DataTable> = {
   title: 'Components/DataTable',
   component: DataTable,
   tags: ['autodocs'],
+  argTypes: {
+    className: {
+      control: 'text',
+      description: 'Custom class name for the data table',
+      table: {
+        type: { summary: 'string' },
+      }
+    },
+  },
 }
 
 export default meta
