@@ -236,6 +236,48 @@ npm run build-storybook
 
 ## Testing Accessibility
 
+### Unit Tests
+
+The component library includes comprehensive unit tests with accessibility validation using Vitest, React Testing Library, and axe-core.
+
+**Run tests:**
+```bash
+cd packages/design-system
+npm test
+```
+
+**Watch mode for development:**
+```bash
+npm run test:watch
+```
+
+**Generate coverage report:**
+```bash
+npm run test:coverage
+```
+
+**Interactive test UI:**
+```bash
+npm run test:ui
+```
+
+**Test Coverage:**
+- ✅ All 15 components with accessibility validation
+- ✅ Custom hooks (useAriaLive, useFocusReturn, useFocusTrap)
+- ✅ Utility functions (ARIA, focus, keyboard helpers)
+- 🎯 Target: 95%+ code coverage
+- 🔍 Automated accessibility testing with axe-core
+
+**What's Tested:**
+- Component rendering and props
+- User interactions (clicks, keyboard navigation, focus)
+- ARIA attributes and roles
+- Keyboard navigation patterns (Tab, Arrow keys, Enter, Escape)
+- Focus management and trapping
+- Screen reader announcements
+- WCAG 2.1/2.2 AA compliance via axe-core
+- Light and dark theme support
+
 ### Automated Testing
 
 Storybook includes the `@storybook/addon-a11y` addon for automated accessibility checks.
@@ -256,7 +298,16 @@ When adding new components:
 3. Add keyboard navigation support
 4. Include focus management
 5. Add Storybook stories with accessibility documentation
-6. Test with keyboard and screen readers
+6. **Write comprehensive unit tests** with accessibility validation
+7. Ensure 95%+ test coverage
+8. Test with keyboard and screen readers
+
+**Testing Requirements:**
+- Unit tests for all component variations and props
+- Keyboard interaction tests
+- Focus management tests
+- Accessibility validation with axe-core
+- Test both light and dark themes where applicable
 
 ## License
 
