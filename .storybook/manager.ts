@@ -24,3 +24,8 @@ addons.setConfig({
   theme,
 })
 
+// Explicitly set document title
+if (typeof window !== 'undefined') {
+  window.document.title = 'A11Y Pros Accessible Design System'
+}
+

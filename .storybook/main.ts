@@ -38,6 +38,11 @@ const config: StorybookConfig = {
     disableTelemetry: true,
   },
   staticDirs: ['../public'],
+  managerHead: (head) => `
+    ${head}
+    <title>A11Y Pros Accessible Design System</title>
+    <meta name="description" content="Accessibility-first React UI component library - WCAG 2.1/2.2 compliant components" />
+  `,
   // Base path is configured in vite.config.ts to use /storybook-static/
   // This ensures assets use absolute paths that match where files are located
 }

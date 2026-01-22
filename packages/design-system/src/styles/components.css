@@ -15,10 +15,6 @@
 /* DataTable */
 @import '../components/DataTable/DataTable.css';
 
-/* Toast */
-@import '../components/Toast/Toast.css';
-@import '../components/Toast/ToastProvider.css';
-
 /* Tabs */
 @import '../components/Tabs/Tabs.css';
 

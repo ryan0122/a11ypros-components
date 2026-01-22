@@ -84,7 +84,6 @@ The Next.js app will be available at `http://localhost:3000` and Storybook at `h
 - **Link**: Semantic link component with external link detection
 - **Modal**: Focus-trapped modal dialog with ARIA support
 - **DataTable**: Accessible table with keyboard navigation and sorting
-- **Toast**: Notification system with ARIA live regions
 - **Tabs**: Tab component with arrow key navigation
 - **Form Components**: Input, Textarea, Select, Checkbox, Radio, Fieldset, Label
 
@@ -124,7 +123,6 @@ Each component documents its WCAG 2.1/2.2 compliance:
 - **2.4.7** Focus Visible
 - **2.5.3** Label in Name
 - **4.1.2** Name, Role, Value (ARIA)
-- **4.1.3** Status Messages (for Toast)
 
 ## AI Audit Assistant
 

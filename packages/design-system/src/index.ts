@@ -7,8 +7,6 @@ export * from './components/Button/Button';
 export * from './components/Link/Link';
 export * from './components/Modal/Modal';
 export * from './components/DataTable/DataTable';
-export * from './components/Toast/Toast';
-export * from './components/Toast/ToastProvider';
 export * from './components/Tabs/Tabs';
 export * from './components/Form/Input';
 export * from './components/Form/Textarea';
