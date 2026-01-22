@@ -1,6 +1,6 @@
 {
   "name": "@a11ypros/a11y-ui-components",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -34,4 +34,3 @@
     "node": ">=18.0.0"
   }
 }
-
