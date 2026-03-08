@@ -66,7 +66,7 @@
   --color-link-hover: #075985;
   
   --color-border-default: #767676; /* was #e5e5e5 (1.26:1) — darkened to meet WCAG 1.4.11 3:1 non-text contrast */
-  --color-border-hover: #d4d4d4;
+  --color-border-hover: #5a5a5a;
   --color-border-focus: #0ea5e9;
   --color-border-error: #ef4444;
   
