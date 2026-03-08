@@ -65,7 +65,7 @@
   --color-link: #0369a1;
   --color-link-hover: #075985;
   
-  --color-border-default: #e5e5e5;
+  --color-border-default: #767676; /* was #e5e5e5 (1.26:1) — darkened to meet WCAG 1.4.11 3:1 non-text contrast */
   --color-border-hover: #d4d4d4;
   --color-border-focus: #0ea5e9;
   --color-border-error: #ef4444;
@@ -247,6 +247,19 @@ h6 {
 
 :focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Visually hidden utility for screen-reader-only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Skip links for keyboard navigation */

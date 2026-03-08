@@ -9,7 +9,7 @@
 /* Accordion item (details element) */
 .accordion-item {
   background-color: var(--color-background-default, #ffffff);
-  border: 1px solid var(--color-border-default, #e5e5e5);
+  border: 1px solid var(--color-border-default, #767676);
   border-radius: 0.5rem;
   transition: border-color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
 }

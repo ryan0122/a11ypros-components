@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import { createActivationHandler } from '../../utils/keyboard'
 import './Accordion.css'
 
 export interface AccordionItemProps {
@@ -58,17 +57,6 @@ export const AccordionItem = React.forwardRef<HTMLDetailsElement, AccordionItemP
     },
     ref
   ) => {
-    const handleSummaryKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-      // Ensure Enter and Space work consistently
-      const activationHandler = createActivationHandler(() => {
-        const details = event.currentTarget.parentElement as HTMLDetailsElement
-        if (details) {
-          details.open = !details.open
-        }
-      })
-      activationHandler(event)
-    }
-
     const classes = ['accordion-item', className].filter(Boolean).join(' ')
 
     return (
@@ -81,7 +69,6 @@ export const AccordionItem = React.forwardRef<HTMLDetailsElement, AccordionItemP
       >
         <summary
           className="accordion-item__summary"
-          onKeyDown={handleSummaryKeyDown}
         >
           <span className="accordion-item__title">{title}</span>
           <svg
@@ -164,10 +151,9 @@ export const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
     const handleToggle = (event: React.SyntheticEvent<HTMLDetailsElement>) => {
       if (!allowMultiple) {
         const targetDetails = event.currentTarget
-        
+
         // Only close others if the current item is being opened
         if (targetDetails.open) {
-          // Close all other details elements
           detailsRefs.current.forEach(details => {
             if (details && details !== targetDetails && details.open) {
               details.open = false
