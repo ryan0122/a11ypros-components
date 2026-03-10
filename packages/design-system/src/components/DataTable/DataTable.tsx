@@ -165,7 +165,7 @@ export function DataTable<T extends Record<string, any>>({
   return (
     <div className={['data-table-wrapper', className].filter(Boolean).join(' ')}>
       <table
-        className="data-table"
+        className={`data-table ${selectable ? 'data-table--selectable' : ''}`.trim()}
         aria-label={caption}
       >
         {caption && <caption className="data-table-caption">{caption}</caption>}
