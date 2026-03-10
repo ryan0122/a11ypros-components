@@ -1,7 +1,7 @@
 {
   "name": "@a11ypros/a11y-ui-components",
   "version": "2.1.1",
-  "private": false,
+  "private": true,
   "workspaces": [
     "packages/*",
     "apps/*"
