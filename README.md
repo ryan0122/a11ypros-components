@@ -83,7 +83,7 @@ The Next.js app will be available at `http://localhost:3000` and Storybook at `h
 - **Button**: Accessible button with variants, sizes, and loading states
 - **Link**: Semantic link component with external link detection
 - **Modal**: Focus-trapped modal dialog with ARIA support
-- **DataTable**: Accessible table with keyboard navigation and sorting
+- **DataTable**: Accessible table with sorting
 - **Tabs**: Tab component with arrow key navigation
 - **Form Components**: Input, Textarea, Select, Checkbox, Radio, Fieldset, Label
 

@@ -118,7 +118,11 @@ const meta: Meta<typeof Modal> = {
         type: { summary: 'string' },
       }
     },
-  },
+      closeOnBackdropClick: {
+        control: 'boolean',
+        description: 'Whether clicking the backdrop should close the modal',
+    },  
+    },
 }
 
 export default meta
