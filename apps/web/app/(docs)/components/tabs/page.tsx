@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { Tabs } from '@a11ypros/a11y-ui-components'
+import { Tabs } from '@a11ypros/a11y-ui-components';
 
 export default function TabsPage() {
   return (
     <main style={{ padding: '2rem' }}>
       <h1>Tabs Component</h1>
       <p>Accessible tabs component with arrow key navigation.</p>
-      
+
       <section style={{ marginTop: '2rem' }}>
         <h2>Example</h2>
         <Tabs
@@ -56,6 +56,5 @@ export default function TabsPage() {
         </ul>
       </section>
     </main>
-  )
+  );
 }
-

@@ -1,29 +1,31 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { DataTable } from '@a11ypros/a11y-ui-components'
+import { useState } from 'react';
+import { DataTable } from '@a11ypros/a11y-ui-components';
 
 const sampleData = [
   { id: '1', name: 'John Doe', email: 'john@example.com', role: 'Admin' },
   { id: '2', name: 'Jane Smith', email: 'jane@example.com', role: 'User' },
   { id: '3', name: 'Bob Johnson', email: 'bob@example.com', role: 'User' },
-]
+];
 
 const columns = [
   { key: 'name', header: 'Name', sortable: true },
   { key: 'email', header: 'Email', sortable: true },
   { key: 'role', header: 'Role', sortable: true },
-]
+];
 
 export default function TablePage() {
-  const [selectedRows, setSelectedRows] = useState<string[]>([])
-  const [sortConfig, setSortConfig] = useState<{ column: string; direction: 'asc' | 'desc' } | undefined>()
+  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [sortConfig, setSortConfig] = useState<
+    { column: string; direction: 'asc' | 'desc' } | undefined
+  >();
 
   return (
     <main style={{ padding: '2rem' }}>
       <h1>DataTable Component</h1>
       <p>Accessible data table with keyboard navigation and sorting.</p>
-      
+
       <section style={{ marginTop: '2rem' }}>
         <h2>Example</h2>
         <DataTable
@@ -49,6 +51,5 @@ export default function TablePage() {
         </ul>
       </section>
     </main>
-  )
+  );
 }
-

@@ -1,21 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server'
-import Anthropic from '@anthropic-ai/sdk'
+import { NextRequest, NextResponse } from 'next/server';
+import Anthropic from '@anthropic-ai/sdk';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || '',
-})
+});
 
 export interface AuditIssue {
-  wcagSC: string // WCAG Success Criterion (e.g., "1.3.1", "2.4.7")
-  severity: 'error' | 'warning' | 'info'
-  message: string
-  suggestion: string
-  codeSuggestion?: string
+  wcagSC: string; // WCAG Success Criterion (e.g., "1.3.1", "2.4.7")
+  severity: 'error' | 'warning' | 'info';
+  message: string;
+  suggestion: string;
+  codeSuggestion?: string;
 }
 
 export interface AuditResponse {
-  issues: AuditIssue[]
-  summary: string
+  issues: AuditIssue[];
+  summary: string;
 }
 
 const WCAG_PROMPT = `You are an accessibility expert reviewing JSX/React code for WCAG 2.1 and 2.2 compliance.
@@ -50,24 +50,21 @@ Return your response as a JSON object with this structure:
   "summary": "Found 3 issues: 2 errors, 1 warning"
 }
 
-Only return valid JSON, no markdown formatting.`
+Only return valid JSON, no markdown formatting.`;
 
 export async function POST(request: NextRequest) {
   try {
-    const { code } = await request.json()
+    const { code } = await request.json();
 
     if (!code || typeof code !== 'string') {
-      return NextResponse.json(
-        { error: 'Code snippet is required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Code snippet is required' }, { status: 400 });
     }
 
     if (!process.env.ANTHROPIC_API_KEY) {
       return NextResponse.json(
         { error: 'ANTHROPIC_API_KEY environment variable is not set' },
         { status: 500 }
-      )
+      );
     }
 
     const message = await anthropic.messages.create({
@@ -79,29 +76,29 @@ export async function POST(request: NextRequest) {
           content: `${WCAG_PROMPT}\n\nCode to review:\n\`\`\`jsx\n${code}\n\`\`\``,
         },
       ],
-    })
+    });
 
-    const content = message.content[0]
+    const content = message.content[0];
     if (content.type !== 'text') {
-      throw new Error('Unexpected response type from Anthropic')
+      throw new Error('Unexpected response type from Anthropic');
     }
 
     // Parse the JSON response
-    let auditResult: AuditResponse
+    let auditResult: AuditResponse;
     try {
       // Extract JSON from the response (handle markdown code blocks if present)
-      let jsonText = content.text.trim()
+      let jsonText = content.text.trim();
       if (jsonText.startsWith('```')) {
-        jsonText = jsonText.replace(/^```(?:json)?\n/, '').replace(/\n```$/, '')
+        jsonText = jsonText.replace(/^```(?:json)?\n/, '').replace(/\n```$/, '');
       }
-      auditResult = JSON.parse(jsonText)
+      auditResult = JSON.parse(jsonText);
     } catch (parseError) {
       // If parsing fails, try to extract JSON from the text
-      const jsonMatch = content.text.match(/\{[\s\S]*\}/)
+      const jsonMatch = content.text.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
-        auditResult = JSON.parse(jsonMatch[0])
+        auditResult = JSON.parse(jsonMatch[0]);
       } else {
-        throw new Error('Failed to parse audit response as JSON')
+        throw new Error('Failed to parse audit response as JSON');
       }
     }
 
@@ -110,19 +107,18 @@ export async function POST(request: NextRequest) {
       auditResult = {
         issues: [],
         summary: 'No issues found or invalid response format',
-      }
+      };
     }
 
-    return NextResponse.json(auditResult)
+    return NextResponse.json(auditResult);
   } catch (error) {
-    console.error('Audit API error:', error)
+    console.error('Audit API error:', error);
     return NextResponse.json(
       {
         error: 'Failed to perform accessibility audit',
         message: error instanceof Error ? error.message : 'Unknown error',
       },
       { status: 500 }
-    )
+    );
   }
 }
-

@@ -1,14 +1,11 @@
-import type { StorybookConfig } from '@storybook/react-vite'
+import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
   stories: [
     '../.storybook/welcome.mdx',
-    '../packages/design-system/src/**/*.stories.@(js|jsx|ts|tsx|mdx)'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-a11y',
-    '@storybook/addon-docs',
+    '../packages/design-system/src/**/*.stories.@(js|jsx|ts|tsx|mdx)',
   ],
+  addons: ['@storybook/addon-links', '@storybook/addon-a11y', '@storybook/addon-docs'],
   framework: {
     name: '@storybook/react-vite',
     options: {
@@ -19,9 +16,9 @@ const config: StorybookConfig = {
     config.define = {
       ...config.define,
       'process.env': {},
-      'process': { env: {} },
-    }
-    return config
+      process: { env: {} },
+    };
+    return config;
   },
   docs: {
     autodocs: 'tag',
@@ -45,7 +42,6 @@ const config: StorybookConfig = {
   `,
   // Base path is configured in vite.config.ts to use /storybook-static/
   // This ensures assets use absolute paths that match where files are located
-}
+};
 
-export default config
-
+export default config;

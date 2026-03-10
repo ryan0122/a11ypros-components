@@ -1,39 +1,39 @@
-'use client'
+'use client';
 
-import React from 'react'
-import { combineAriaDescribedBy } from '../../utils/aria'
-import './Checkbox.css'
+import React from 'react';
+import { combineAriaDescribedBy } from '../../utils/aria';
+import './Checkbox.css';
 
 export interface CheckboxProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   /**
    * Label for the checkbox
    */
-  label?: string
+  label?: string;
 
   /**
    * Error message to display
    */
-  error?: string
+  error?: string;
 
   /**
    * Helper text to display
    */
-  helperText?: string
+  helperText?: string;
 
   /**
    * Indeterminate state for the checkbox
    */
-  indeterminate?: boolean
+  indeterminate?: boolean;
 }
 
 /**
  * Accessible Checkbox component
- * 
+ *
  * WCAG Compliance:
  * - 1.3.1 Info and Relationships: Proper label-input association
  * - 2.5.3 Label in Name: Label text matches accessible name
  * - 4.1.2 Name, Role, Value: Proper ARIA attributes
- * 
+ *
  * @example
  * ```tsx
  * <Checkbox
@@ -58,30 +58,22 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     },
     ref
   ) => {
-    const checkboxId = React.useId()
-    const finalId = id || `checkbox-${checkboxId}`
-    const errorId = error ? `${finalId}-error` : undefined
-    const helperId = helperText ? `${finalId}-helper` : undefined
+    const checkboxId = React.useId();
+    const finalId = id || `checkbox-${checkboxId}`;
+    const errorId = error ? `${finalId}-error` : undefined;
+    const helperId = helperText ? `${finalId}-helper` : undefined;
 
     React.useEffect(() => {
       if (ref && 'current' in ref && ref.current) {
-        ref.current.indeterminate = indeterminate ?? false
+        ref.current.indeterminate = indeterminate ?? false;
       }
-    }, [indeterminate, ref])
+    }, [indeterminate, ref]);
 
-    const describedBy = combineAriaDescribedBy(
-      ariaDescribedBy,
-      errorId,
-      helperId
-    )
+    const describedBy = combineAriaDescribedBy(ariaDescribedBy, errorId, helperId);
 
-    const classes = [
-      'form-checkbox',
-      error && 'form-checkbox--error',
-      className,
-    ]
+    const classes = ['form-checkbox', error && 'form-checkbox--error', className]
       .filter(Boolean)
-      .join(' ')
+      .join(' ');
 
     return (
       <div className="form-checkbox-wrapper">
@@ -101,7 +93,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
               {label}
               {props.required && (
                 <span className="form-label__required" aria-hidden="true">
-                  {' '}*
+                  {' '}
+                  *
                 </span>
               )}
             </label>
@@ -118,9 +111,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           </span>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-Checkbox.displayName = 'Checkbox'
-
+Checkbox.displayName = 'Checkbox';

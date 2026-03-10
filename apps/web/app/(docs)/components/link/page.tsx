@@ -1,19 +1,23 @@
-'use client'
+'use client';
 
-import { Link } from '@a11ypros/a11y-ui-components'
+import { Link } from '@a11ypros/a11y-ui-components';
 
 export default function LinkPage() {
   return (
     <main style={{ padding: '2rem' }}>
       <h1>Link Component</h1>
       <p>Accessible link component with external link detection.</p>
-      
+
       <section style={{ marginTop: '2rem' }}>
         <h2>Examples</h2>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Link href="/components">Internal Link</Link>
-          <Link href="https://example.com" external>External Link</Link>
-          <Link href="#main-content" skip>Skip Link</Link>
+          <Link href="https://example.com" external>
+            External Link
+          </Link>
+          <Link href="#main-content" skip>
+            Skip Link
+          </Link>
         </div>
       </section>
 
@@ -26,6 +30,5 @@ export default function LinkPage() {
         </ul>
       </section>
     </main>
-  )
+  );
 }
-

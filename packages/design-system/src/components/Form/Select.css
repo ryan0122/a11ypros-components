@@ -20,7 +20,8 @@
   border-radius: 0.375rem;
   appearance: none;
   cursor: pointer;
-  transition: border-color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
+  transition: border-color var(--motion-duration-normal, 200ms)
+    var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
 }
 
 /* Respect reduced motion */
@@ -61,9 +62,8 @@
   .form-select {
     border-width: 2px;
   }
-  
+
   .form-select:focus-visible {
     outline-width: 3px;
   }
 }
-

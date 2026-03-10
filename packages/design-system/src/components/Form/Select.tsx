@@ -1,50 +1,53 @@
-'use client'
+'use client';
 
-import React from 'react'
-import { combineAriaDescribedBy } from '../../utils/aria'
-import './Select.css'
+import React from 'react';
+import { combineAriaDescribedBy } from '../../utils/aria';
+import './Select.css';
 
 export interface SelectOption {
-  value: string
-  label: string
-  disabled?: boolean
+  value: string;
+  label: string;
+  disabled?: boolean;
 }
 
-export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'children'> {
+export interface SelectProps extends Omit<
+  React.SelectHTMLAttributes<HTMLSelectElement>,
+  'children'
+> {
   /**
    * Options for the select
    */
-  options: SelectOption[]
-  
+  options: SelectOption[];
+
   /**
    * Error message to display
    */
-  error?: string
-  
+  error?: string;
+
   /**
    * Helper text to display below the select
    */
-  helperText?: string
-  
+  helperText?: string;
+
   /**
    * Label for the select
    */
-  label?: string
-  
+  label?: string;
+
   /**
    * Placeholder option text
    */
-  placeholder?: string
+  placeholder?: string;
 }
 
 /**
  * Accessible Select component
- * 
+ *
  * WCAG Compliance:
  * - 1.3.1 Info and Relationships: Proper label-select association
  * - 2.1.1 Keyboard: Full keyboard navigation
  * - 4.1.2 Name, Role, Value: Proper ARIA attributes
- * 
+ *
  * @example
  * ```tsx
  * <Select
@@ -72,16 +75,12 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     },
     ref
   ) => {
-    const selectId = React.useId()
-    const finalId = id || `select-${selectId}`
-    const errorId = error ? `${finalId}-error` : undefined
-    const helperId = helperText ? `${finalId}-helper` : undefined
+    const selectId = React.useId();
+    const finalId = id || `select-${selectId}`;
+    const errorId = error ? `${finalId}-error` : undefined;
+    const helperId = helperText ? `${finalId}-helper` : undefined;
 
-    const describedBy = combineAriaDescribedBy(
-      ariaDescribedBy,
-      errorId,
-      helperId
-    )
+    const describedBy = combineAriaDescribedBy(ariaDescribedBy, errorId, helperId);
 
     const classes = [
       'form-select',
@@ -90,7 +89,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       className,
     ]
       .filter(Boolean)
-      .join(' ')
+      .join(' ');
 
     return (
       <div className="form-select-wrapper">
@@ -99,7 +98,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             {label}
             {props.required && (
               <span className="form-label__required" aria-hidden="true">
-                {' '}*
+                {' '}
+                *
               </span>
             )}
           </label>
@@ -119,11 +119,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             </option>
           )}
           {options.map((option) => (
-            <option
-              key={option.value}
-              value={option.value}
-              disabled={option.disabled}
-            >
+            <option key={option.value} value={option.value} disabled={option.disabled}>
               {option.label}
             </option>
           ))}
@@ -139,9 +135,8 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
           </span>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-Select.displayName = 'Select'
-
+Select.displayName = 'Select';

@@ -1,82 +1,82 @@
-'use client'
+'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react'
-import { useAriaLive } from '../../hooks/useAriaLive'
-import { Checkbox } from '../Form/Checkbox'
-import { TableRow } from './TableRow'
-import './DataTable.css'
+import React, { useEffect, useRef, useCallback } from 'react';
+import { useAriaLive } from '../../hooks/useAriaLive';
+import { Checkbox } from '../Form/Checkbox';
+import { TableRow } from './TableRow';
+import './DataTable.css';
 
 export interface DataTableColumn<T> {
-  key: string
-  header: string
-  render?: (row: T, index: number) => React.ReactNode
-  sortable?: boolean
-  width?: string
+  key: string;
+  header: string;
+  render?: (row: T, index: number) => React.ReactNode;
+  sortable?: boolean;
+  width?: string;
 }
 
 export interface DataTableProps<T> {
   /**
    * Data rows
    */
-  data: T[]
-  
+  data: T[];
+
   /**
    * Column definitions
    */
-  columns: DataTableColumn<T>[]
-  
+  columns: DataTableColumn<T>[];
+
   /**
    * Key function to get unique ID for each row
    */
-  getRowId: (row: T) => string
-  
+  getRowId: (row: T) => string;
+
   /**
    * Whether rows are selectable
    */
-  selectable?: boolean
-  
+  selectable?: boolean;
+
   /**
    * Selected row IDs
    */
-  selectedRows?: string[]
-  
+  selectedRows?: string[];
+
   /**
    * Callback when selection changes
    */
-  onSelectionChange?: (selectedIds: string[]) => void
-  
+  onSelectionChange?: (selectedIds: string[]) => void;
+
   /**
    * Sort configuration
    */
   sortConfig?: {
-    column: string
-    direction: 'asc' | 'desc'
-  }
-  
+    column: string;
+    direction: 'asc' | 'desc';
+  };
+
   /**
    * Callback when sort changes
    */
-  onSortChange?: (column: string, direction: 'asc' | 'desc') => void
-  
+  onSortChange?: (column: string, direction: 'asc' | 'desc') => void;
+
   /**
    * Caption for the table (required for accessibility)
    */
-  caption?: string
-  
+  caption?: string;
+
   /**
    * Custom class name
    */
-  className?: string
+  className?: string;
 }
 
 /**
  * Accessible DataTable component
- * 
+ *
  * WCAG Compliance:
  * - 1.3.1 Info and Relationships: Semantic table structure
  * - 4.1.2 Name, Role, Value: Proper ARIA attributes
  * - 4.1.3 Status Messages: Sort and Select announcements
- * 
+ *
  * @example
  * ```tsx
  * <DataTable
@@ -104,63 +104,60 @@ export function DataTable<T extends Record<string, any>>({
   // Announce sort changes
   const sortAnnouncement = sortConfig
     ? `Sorted by ${columns.find((c) => c.key === sortConfig.column)?.header || sortConfig.column}, ${sortConfig.direction === 'asc' ? 'ascending' : 'descending'}`
-    : undefined
+    : undefined;
   useAriaLive(sortAnnouncement, 'polite');
 
   const selectedCountAnnouncement = selectable
     ? `${selectedRows.length} of ${data.length} rows selected`
-    : undefined
+    : undefined;
   useAriaLive(selectedCountAnnouncement, 'polite');
 
   const handleSelectAll = useCallback(() => {
-    if (!onSelectionChange) return
+    if (!onSelectionChange) return;
 
-    const allSelected = selectedRows.length === data.length
+    const allSelected = selectedRows.length === data.length;
     if (allSelected) {
-      onSelectionChange([])
+      onSelectionChange([]);
     } else {
-      onSelectionChange(data.map(getRowId))
+      onSelectionChange(data.map(getRowId));
     }
   }, [data, selectedRows, onSelectionChange]);
 
-
   const handleSelectRow = useCallback(
     (rowId: string) => {
-      if (!onSelectionChange) return
+      if (!onSelectionChange) return;
 
-      const isSelected = selectedRows.includes(rowId)
+      const isSelected = selectedRows.includes(rowId);
       if (isSelected) {
-        onSelectionChange(selectedRows.filter((id) => id !== rowId))
+        onSelectionChange(selectedRows.filter((id) => id !== rowId));
       } else {
-        onSelectionChange([...selectedRows, rowId])
+        onSelectionChange([...selectedRows, rowId]);
       }
     },
     [selectedRows, onSelectionChange]
-  )
+  );
 
   const handleSort = useCallback(
     (columnKey: string) => {
       if (!onSortChange || !columns.find((c) => c.key === columnKey)?.sortable) {
-        return
+        return;
       }
 
       const newDirection =
-        sortConfig?.column === columnKey && sortConfig.direction === 'asc'
-          ? 'desc'
-          : 'asc'
-      onSortChange(columnKey, newDirection)
+        sortConfig?.column === columnKey && sortConfig.direction === 'asc' ? 'desc' : 'asc';
+      onSortChange(columnKey, newDirection);
     },
     [onSortChange, sortConfig, columns]
-  )
+  );
 
   const allSelected = data.length > 0 && selectedRows.length === data.length;
   const someSelected = selectedRows.length > 0 && selectedRows.length < data.length;
 
-    useEffect(() => {
-	    if (toggleAllInputRef.current) {
-	      toggleAllInputRef.current.indeterminate = someSelected;
-	    }
-  	}, [someSelected]);
+  useEffect(() => {
+    if (toggleAllInputRef.current) {
+      toggleAllInputRef.current.indeterminate = someSelected;
+    }
+  }, [someSelected]);
 
   return (
     <div className={['data-table-wrapper', className].filter(Boolean).join(' ')}>
@@ -224,8 +221,8 @@ export function DataTable<T extends Record<string, any>>({
         </thead>
         <tbody>
           {data.map((row, index) => {
-            const rowId = getRowId(row)
-            const isSelected = selectedRows.includes(rowId)
+            const rowId = getRowId(row);
+            const isSelected = selectedRows.includes(rowId);
 
             return (
               <TableRow
@@ -238,11 +235,10 @@ export function DataTable<T extends Record<string, any>>({
                 isSelected={isSelected}
                 onSelectRow={handleSelectRow}
               />
-            )
+            );
           })}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
-

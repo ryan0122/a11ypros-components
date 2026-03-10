@@ -3,7 +3,8 @@
   color: var(--color-link, #0369a1);
   text-decoration: underline;
   text-underline-offset: 0.125em;
-  transition: color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
+  transition: color var(--motion-duration-normal, 200ms)
+    var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
 }
 
 /* Respect reduced motion */
@@ -35,7 +36,7 @@
   .link {
     text-decoration-thickness: 2px;
   }
-  
+
   .link:focus-visible {
     outline-width: 3px;
   }
@@ -67,4 +68,3 @@
   font-size: 0.875em;
   vertical-align: baseline;
 }
-

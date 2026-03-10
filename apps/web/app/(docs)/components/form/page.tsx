@@ -1,20 +1,28 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Input, Textarea, Select, Checkbox, Radio, Fieldset, Label } from '@a11ypros/a11y-ui-components'
+import { useState } from 'react';
+import {
+  Input,
+  Textarea,
+  Select,
+  Checkbox,
+  Radio,
+  Fieldset,
+  Label,
+} from '@a11ypros/a11y-ui-components';
 
 export default function FormPage() {
-  const [email, setEmail] = useState('')
-  const [message, setMessage] = useState('')
-  const [country, setCountry] = useState('')
-  const [agree, setAgree] = useState(false)
-  const [size, setSize] = useState('')
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [country, setCountry] = useState('');
+  const [agree, setAgree] = useState(false);
+  const [size, setSize] = useState('');
 
   return (
     <main style={{ padding: '2rem' }}>
       <h1>Form Components</h1>
       <p>Accessible form components with proper labels and ARIA attributes.</p>
-      
+
       <section style={{ marginTop: '2rem' }}>
         <h2>Input</h2>
         <Input
@@ -87,6 +95,5 @@ export default function FormPage() {
         </ul>
       </section>
     </main>
-  )
+  );
 }
-

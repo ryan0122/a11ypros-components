@@ -41,23 +41,26 @@ An opinionated, accessibility-first design system built with React, TypeScript, 
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or pnpm
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Set up environment variables:
-Create a `.env.local` file in `apps/web/`:
+   Create a `.env.local` file in `apps/web/`:
+
 ```bash
 ANTHROPIC_API_KEY=your_api_key_here
 ```
@@ -65,11 +68,13 @@ ANTHROPIC_API_KEY=your_api_key_here
 ### Development
 
 1. Start the Next.js development server:
+
 ```bash
 npm run dev
 ```
 
 2. Start Storybook (in a separate terminal):
+
 ```bash
 npm run storybook
 ```
@@ -90,26 +95,22 @@ The Next.js app will be available at `http://localhost:3000` and Storybook at `h
 ### Usage Example
 
 ```tsx
-import { Button, Input, Modal } from '@a11ypros/a11y-ui-components'
+import { Button, Input, Modal } from '@a11ypros/a11y-ui-components';
 
 function MyComponent() {
-  const [isOpen, setIsOpen] = useState(false)
-  
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <>
       <Button variant="primary" onClick={() => setIsOpen(true)}>
         Open Modal
       </Button>
-      
-      <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Example Modal"
-      >
+
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Example Modal">
         <Input label="Email" type="email" required />
       </Modal>
     </>
-  )
+  );
 }
 ```
 
@@ -171,9 +172,9 @@ The design system includes built-in support for light and dark modes using seman
 ```html
 <!-- Light mode (default) -->
 <html data-theme="light">
-
-<!-- Dark mode -->
-<html data-theme="dark">
+  <!-- Dark mode -->
+  <html data-theme="dark"></html>
+</html>
 ```
 
 Implement a theme toggle:
@@ -181,22 +182,21 @@ Implement a theme toggle:
 ```tsx
 const ThemeToggle = () => {
   const [theme, setTheme] = useState('light');
-  
+
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);
   };
-  
+
   return (
-    <button onClick={toggleTheme}>
-      Switch to {theme === 'light' ? 'dark' : 'light'} mode
-    </button>
+    <button onClick={toggleTheme}>Switch to {theme === 'light' ? 'dark' : 'light'} mode</button>
   );
 };
 ```
 
 **Theme-Aware Semantic Colors:**
+
 - `--color-text-primary`: Main text color (adapts to theme)
 - `--color-text-secondary`: Secondary text color
 - `--color-background-default`: Primary background
@@ -215,6 +215,7 @@ npm run storybook
 ```
 
 Each component story includes:
+
 - Usage examples
 - Accessibility notes
 - Keyboard interaction tables
@@ -223,11 +224,13 @@ Each component story includes:
 ## Building
 
 Build the Next.js app:
+
 ```bash
 npm run build
 ```
 
 Build Storybook:
+
 ```bash
 npm run build-storybook
 ```
@@ -239,27 +242,32 @@ npm run build-storybook
 The component library includes comprehensive unit tests with accessibility validation using Vitest, React Testing Library, and axe-core.
 
 **Run tests:**
+
 ```bash
 cd packages/design-system
 npm test
 ```
 
 **Watch mode for development:**
+
 ```bash
 npm run test:watch
 ```
 
 **Generate coverage report:**
+
 ```bash
 npm run test:coverage
 ```
 
 **Interactive test UI:**
+
 ```bash
 npm run test:ui
 ```
 
 **Test Coverage:**
+
 - ✅ All 15 components with accessibility validation
 - ✅ Custom hooks (useAriaLive, useFocusReturn, useFocusTrap)
 - ✅ Utility functions (ARIA, focus, keyboard helpers)
@@ -267,6 +275,7 @@ npm run test:ui
 - 🔍 Automated accessibility testing with axe-core
 
 **What's Tested:**
+
 - Component rendering and props
 - User interactions (clicks, keyboard navigation, focus)
 - ARIA attributes and roles
@@ -301,6 +310,7 @@ When adding new components:
 8. Test with keyboard and screen readers
 
 **Testing Requirements:**
+
 - Unit tests for all component variations and props
 - Keyboard interaction tests
 - Focus management tests
@@ -316,4 +326,3 @@ MIT
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)
 - [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
-

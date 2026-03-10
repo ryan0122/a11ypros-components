@@ -1,26 +1,26 @@
-import React from 'react'
-import './Label.css'
+import React from 'react';
+import './Label.css';
 
 export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
   /**
    * Whether this label is required (shows asterisk)
    */
-  required?: boolean
-  
+  required?: boolean;
+
   /**
    * ID of the input this label is associated with
    */
-  htmlFor?: string
+  htmlFor?: string;
 }
 
 /**
  * Accessible Label component
- * 
+ *
  * WCAG Compliance:
  * - 1.3.1 Info and Relationships: Proper label-input association
  * - 2.5.3 Label in Name: Label text matches accessible name
  * - 4.1.2 Name, Role, Value: Proper semantic HTML
- * 
+ *
  * @example
  * ```tsx
  * <Label htmlFor="email" required>
@@ -31,26 +31,22 @@ export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> 
  */
 export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
   ({ required = false, className = '', children, ...props }, ref) => {
-    const classes = [
-      'form-label',
-      required && 'form-label--required',
-      className,
-    ]
+    const classes = ['form-label', required && 'form-label--required', className]
       .filter(Boolean)
-      .join(' ')
+      .join(' ');
 
     return (
       <label ref={ref} className={classes} {...props}>
         {children}
         {required && (
           <span className="form-label__required" aria-hidden="true">
-            {' '}*
+            {' '}
+            *
           </span>
         )}
       </label>
-    )
+    );
   }
-)
+);
 
-Label.displayName = 'Label'
-
+Label.displayName = 'Label';

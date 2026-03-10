@@ -1,35 +1,32 @@
-import { ReactElement } from 'react'
-import { render, RenderOptions } from '@testing-library/react'
-import { axe, toHaveNoViolations } from 'jest-axe'
-import '@testing-library/jest-dom'
+import { ReactElement } from 'react';
+import { render, RenderOptions } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
+import '@testing-library/jest-dom';
 
 // Extend expect with jest-axe matchers
-expect.extend(toHaveNoViolations)
+expect.extend(toHaveNoViolations);
 
 // Custom render function that wraps components with necessary providers
 interface CustomRenderOptions extends Omit<RenderOptions, 'wrapper'> {
-  theme?: 'light' | 'dark'
+  theme?: 'light' | 'dark';
 }
 
-function customRender(
-  ui: ReactElement,
-  options?: CustomRenderOptions
-) {
-  const { theme = 'light', ...renderOptions } = options || {}
+function customRender(ui: ReactElement, options?: CustomRenderOptions) {
+  const { theme = 'light', ...renderOptions } = options || {};
 
   // Set data-theme attribute for testing
   if (theme) {
-    document.documentElement.setAttribute('data-theme', theme)
+    document.documentElement.setAttribute('data-theme', theme);
   }
 
-  return render(ui, renderOptions)
+  return render(ui, renderOptions);
 }
 
 // Helper function to run axe accessibility tests
 async function runAxeTest(container: HTMLElement) {
-  const results = await axe(container)
-  expect(results).toHaveNoViolations()
-  return results
+  const results = await axe(container);
+  expect(results).toHaveNoViolations();
+  return results;
 }
 
 // Mock matchMedia for theme and reduced motion tests
@@ -45,7 +42,7 @@ Object.defineProperty(window, 'matchMedia', {
     removeEventListener: () => {},
     dispatchEvent: () => true,
   }),
-})
+});
 
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
@@ -53,10 +50,10 @@ global.IntersectionObserver = class IntersectionObserver {
   disconnect() {}
   observe() {}
   takeRecords() {
-    return []
+    return [];
   }
   unobserve() {}
-} as any
+} as any;
 
 // Mock ResizeObserver
 global.ResizeObserver = class ResizeObserver {
@@ -64,8 +61,8 @@ global.ResizeObserver = class ResizeObserver {
   disconnect() {}
   observe() {}
   unobserve() {}
-} as any
+} as any;
 
 // Export everything from @testing-library/react
-export * from '@testing-library/react'
-export { customRender as render, runAxeTest }
+export * from '@testing-library/react';
+export { customRender as render, runAxeTest };

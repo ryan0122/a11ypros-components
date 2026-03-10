@@ -1,21 +1,21 @@
-import { Handler } from '@netlify/functions'
-import Anthropic from '@anthropic-ai/sdk'
+import { Handler } from '@netlify/functions';
+import Anthropic from '@anthropic-ai/sdk';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY || '',
-})
+});
 
 interface AuditIssue {
-  wcagSC: string // WCAG Success Criterion (e.g., "1.3.1", "2.4.7")
-  severity: 'error' | 'warning' | 'info'
-  message: string
-  suggestion: string
-  codeSuggestion?: string
+  wcagSC: string; // WCAG Success Criterion (e.g., "1.3.1", "2.4.7")
+  severity: 'error' | 'warning' | 'info';
+  message: string;
+  suggestion: string;
+  codeSuggestion?: string;
 }
 
 interface AuditResponse {
-  issues: AuditIssue[]
-  summary: string
+  issues: AuditIssue[];
+  summary: string;
 }
 
 const WCAG_PROMPT = `You are an accessibility expert reviewing JSX/React code for WCAG 2.1 and 2.2 compliance.
@@ -50,7 +50,7 @@ Return your response as a JSON object with this structure:
   "summary": "Found 3 issues: 2 errors, 1 warning"
 }
 
-Only return valid JSON, no markdown formatting.`
+Only return valid JSON, no markdown formatting.`;
 
 export const handler: Handler = async (event, context) => {
   // Handle CORS
@@ -59,7 +59,7 @@ export const handler: Handler = async (event, context) => {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  }
+  };
 
   // Handle preflight requests
   if (event.httpMethod === 'OPTIONS') {
@@ -67,7 +67,7 @@ export const handler: Handler = async (event, context) => {
       statusCode: 200,
       headers,
       body: '',
-    }
+    };
   }
 
   // Only allow POST requests
@@ -76,18 +76,18 @@ export const handler: Handler = async (event, context) => {
       statusCode: 405,
       headers,
       body: JSON.stringify({ error: 'Method not allowed' }),
-    }
+    };
   }
 
   try {
-    const { code } = JSON.parse(event.body || '{}')
+    const { code } = JSON.parse(event.body || '{}');
 
     if (!code || typeof code !== 'string') {
       return {
         statusCode: 400,
         headers,
         body: JSON.stringify({ error: 'Code snippet is required' }),
-      }
+      };
     }
 
     if (!process.env.ANTHROPIC_API_KEY) {
@@ -97,7 +97,7 @@ export const handler: Handler = async (event, context) => {
         body: JSON.stringify({
           error: 'ANTHROPIC_API_KEY environment variable is not set',
         }),
-      }
+      };
     }
 
     const message = await anthropic.messages.create({
@@ -109,29 +109,29 @@ export const handler: Handler = async (event, context) => {
           content: `${WCAG_PROMPT}\n\nCode to review:\n\`\`\`jsx\n${code}\n\`\`\``,
         },
       ],
-    })
+    });
 
-    const content = message.content[0]
+    const content = message.content[0];
     if (content.type !== 'text') {
-      throw new Error('Unexpected response type from Anthropic')
+      throw new Error('Unexpected response type from Anthropic');
     }
 
     // Parse the JSON response
-    let auditResult: AuditResponse
+    let auditResult: AuditResponse;
     try {
       // Extract JSON from the response (handle markdown code blocks if present)
-      let jsonText = content.text.trim()
+      let jsonText = content.text.trim();
       if (jsonText.startsWith('```')) {
-        jsonText = jsonText.replace(/^```(?:json)?\n/, '').replace(/\n```$/, '')
+        jsonText = jsonText.replace(/^```(?:json)?\n/, '').replace(/\n```$/, '');
       }
-      auditResult = JSON.parse(jsonText)
+      auditResult = JSON.parse(jsonText);
     } catch (parseError) {
       // If parsing fails, try to extract JSON from the text
-      const jsonMatch = content.text.match(/\{[\s\S]*\}/)
+      const jsonMatch = content.text.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
-        auditResult = JSON.parse(jsonMatch[0])
+        auditResult = JSON.parse(jsonMatch[0]);
       } else {
-        throw new Error('Failed to parse audit response as JSON')
+        throw new Error('Failed to parse audit response as JSON');
       }
     }
 
@@ -140,16 +140,16 @@ export const handler: Handler = async (event, context) => {
       auditResult = {
         issues: [],
         summary: 'No issues found or invalid response format',
-      }
+      };
     }
 
     return {
       statusCode: 200,
       headers,
       body: JSON.stringify(auditResult),
-    }
+    };
   } catch (error) {
-    console.error('Audit API error:', error)
+    console.error('Audit API error:', error);
     return {
       statusCode: 500,
       headers,
@@ -157,7 +157,6 @@ export const handler: Handler = async (event, context) => {
         error: 'Failed to perform accessibility audit',
         message: error instanceof Error ? error.message : 'Unknown error',
       }),
-    }
+    };
   }
-}
-
+};

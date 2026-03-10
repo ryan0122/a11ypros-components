@@ -1,30 +1,33 @@
-import type { Preview } from '@storybook/react'
-import React, { useEffect } from 'react'
-import '../packages/design-system/src/styles/global.css'
-import './custom.css'
+import type { Preview } from '@storybook/react';
+import React, { useEffect } from 'react';
+import '../packages/design-system/src/styles/global.css';
+import './custom.css';
 
 const withTheme = (Story, context) => {
-  const theme = context.globals.theme || 'light'
-  
+  const theme = context.globals.theme || 'light';
+
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
+    document.documentElement.setAttribute('data-theme', theme);
     // Also update Storybook's docs background
-    const docsStory = document.querySelector('.docs-story')
+    const docsStory = document.querySelector('.docs-story');
     if (docsStory) {
-      docsStory.setAttribute('data-theme', theme)
+      docsStory.setAttribute('data-theme', theme);
     }
-  }, [theme])
-  
+  }, [theme]);
+
   return (
-    <div data-theme={theme} style={{ 
-      backgroundColor: theme === 'dark' ? '#171717' : '#ffffff',
-      minHeight: '100%',
-      padding: '1rem'
-    }}>
+    <div
+      data-theme={theme}
+      style={{
+        backgroundColor: theme === 'dark' ? '#171717' : '#ffffff',
+        minHeight: '100%',
+        padding: '1rem',
+      }}
+    >
       <Story />
     </div>
-  )
-}
+  );
+};
 
 const preview: Preview = {
   decorators: [withTheme],
@@ -68,7 +71,6 @@ const preview: Preview = {
       toc: false,
     },
   },
-}
+};
 
-export default preview
-
+export default preview;

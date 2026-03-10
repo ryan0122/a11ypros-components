@@ -1,11 +1,11 @@
 /**
  * Central theme export combining all design tokens
  */
-import { colors } from './colors'
-import { spacing } from './spacing'
-import { typography } from './typography'
-import { motion } from './motion'
-import { breakpoints } from './breakpoints'
+import { colors } from './colors';
+import { spacing } from './spacing';
+import { typography } from './typography';
+import { motion } from './motion';
+import { breakpoints } from './breakpoints';
 
 export const theme = {
   colors,
@@ -13,7 +13,6 @@ export const theme = {
   typography,
   motion,
   breakpoints,
-} as const
+} as const;
 
-export type Theme = typeof theme
-
+export type Theme = typeof theme;

@@ -1,54 +1,54 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import dynamic from 'next/dynamic'
-import Image from 'next/image'
-import { Button } from '@a11ypros/a11y-ui-components'
-import './audit.css'
+import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
+import { Button } from '@a11ypros/a11y-ui-components';
+import './audit.css';
 
 // Dynamically import SyntaxHighlighter to avoid SSR/build issues
 const SyntaxHighlighter = dynamic(
   () => import('react-syntax-highlighter').then((mod) => mod.Prism as any),
   { ssr: false }
-)
+);
 
 interface AuditIssue {
-  wcagSC: string
-  severity: 'error' | 'warning' | 'info'
-  message: string
-  suggestion: string
-  codeSuggestion?: string
+  wcagSC: string;
+  severity: 'error' | 'warning' | 'info';
+  message: string;
+  suggestion: string;
+  codeSuggestion?: string;
 }
 
 interface AuditResponse {
-  issues: AuditIssue[]
-  summary: string
+  issues: AuditIssue[];
+  summary: string;
 }
 
 export default function AuditPage() {
-  const [code, setCode] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<AuditResponse | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [expandedIssues, setExpandedIssues] = useState<Set<number>>(new Set())
-  const [codeStyle, setCodeStyle] = useState<any>(null)
+  const [code, setCode] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<AuditResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [expandedIssues, setExpandedIssues] = useState<Set<number>>(new Set());
+  const [codeStyle, setCodeStyle] = useState<any>(null);
 
   // Load the style on client side only
   useEffect(() => {
     import('react-syntax-highlighter/dist/cjs/styles/prism').then((mod) => {
-      setCodeStyle(mod.vscDarkPlus)
-    })
-  }, [])
+      setCodeStyle(mod.vscDarkPlus);
+    });
+  }, []);
 
   const handleAudit = async () => {
     if (!code.trim()) {
-      setError('Please enter JSX code to audit')
-      return
+      setError('Please enter JSX code to audit');
+      return;
     }
 
-    setLoading(true)
-    setError(null)
-    setResult(null)
+    setLoading(true);
+    setError(null);
+    setResult(null);
 
     try {
       const response = await fetch('/api/audit', {
@@ -57,80 +57,76 @@ export default function AuditPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ code }),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.error || 'Failed to perform audit')
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to perform audit');
       }
 
-      const data: AuditResponse = await response.json()
-      setResult(data)
+      const data: AuditResponse = await response.json();
+      setResult(data);
       // Expand all issues by default
-      setExpandedIssues(new Set(data.issues.map((_, i) => i)))
+      setExpandedIssues(new Set(data.issues.map((_, i) => i)));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred')
+      setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const toggleIssue = (index: number) => {
-    const newExpanded = new Set(expandedIssues)
+    const newExpanded = new Set(expandedIssues);
     if (newExpanded.has(index)) {
-      newExpanded.delete(index)
+      newExpanded.delete(index);
     } else {
-      newExpanded.add(index)
+      newExpanded.add(index);
     }
-    setExpandedIssues(newExpanded)
-  }
+    setExpandedIssues(newExpanded);
+  };
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
       case 'error':
-        return 'var(--color-error-500, #ef4444)'
+        return 'var(--color-error-500, #ef4444)';
       case 'warning':
-        return 'var(--color-warning-500, #f59e0b)'
+        return 'var(--color-warning-500, #f59e0b)';
       case 'info':
-        return 'var(--color-primary-500, #0ea5e9)'
+        return 'var(--color-primary-500, #0ea5e9)';
       default:
-        return 'var(--color-neutral-500, #737373)'
+        return 'var(--color-neutral-500, #737373)';
     }
-  }
+  };
 
   const getSeverityLabel = (severity: string) => {
-    return severity.charAt(0).toUpperCase() + severity.slice(1)
-  }
+    return severity.charAt(0).toUpperCase() + severity.slice(1);
+  };
 
   // Group issues by WCAG SC
-  const groupedIssues = result?.issues.reduce((acc, issue, index) => {
-    if (!acc[issue.wcagSC]) {
-      acc[issue.wcagSC] = []
-    }
-    acc[issue.wcagSC].push({ ...issue, originalIndex: index })
-    return acc
-  }, {} as Record<string, Array<AuditIssue & { originalIndex: number }>>)
+  const groupedIssues = result?.issues.reduce(
+    (acc, issue, index) => {
+      if (!acc[issue.wcagSC]) {
+        acc[issue.wcagSC] = [];
+      }
+      acc[issue.wcagSC].push({ ...issue, originalIndex: index });
+      return acc;
+    },
+    {} as Record<string, Array<AuditIssue & { originalIndex: number }>>
+  );
 
   return (
     <main className="audit-page">
       <div className="audit-container">
         <header className="audit-header">
           <div className="audit-header-top">
-          <h1>AI Accessibility Audit Assistant</h1>
+            <h1>AI Accessibility Audit Assistant</h1>
             <div className="audit-header-logo">
-                <Image
-                  src="/logo.png"
-                  alt="A11y Pros Logo"
-                  width={150}
-                  height={25}
-                  priority
-                />
+              <Image src="/logo.png" alt="A11y Pros Logo" width={150} height={25} priority />
             </div>
-           
           </div>
           <p>
-            Paste your JSX code snippet below to get an AI-powered accessibility review
-            based on WCAG 2.1 and 2.2 guidelines.
+            Paste your JSX code snippet below to get an AI-powered accessibility review based on
+            WCAG 2.1 and 2.2 guidelines.
           </p>
         </header>
 
@@ -156,7 +152,7 @@ export default function AuditPage() {
             disabled={!code.trim() || loading}
             variant="primary"
             size="lg"
-            className='audit-button'
+            className="audit-button"
           >
             {loading ? 'Auditing...' : 'Run Accessibility Audit'}
           </Button>
@@ -190,8 +186,8 @@ export default function AuditPage() {
                         </span>
                       </h3>
                       {issues.map((issue, idx) => {
-                        const globalIndex = issue.originalIndex
-                        const isExpanded = expandedIssues.has(globalIndex)
+                        const globalIndex = issue.originalIndex;
+                        const isExpanded = expandedIssues.has(globalIndex);
                         return (
                           <div
                             key={globalIndex}
@@ -215,10 +211,7 @@ export default function AuditPage() {
                               </span>
                             </button>
                             {isExpanded && (
-                              <div
-                                id={`issue-${globalIndex}`}
-                                className="audit-issue-details"
-                              >
+                              <div id={`issue-${globalIndex}`} className="audit-issue-details">
                                 <div className="audit-issue-suggestion">
                                   <strong>Suggestion:</strong> {issue.suggestion}
                                 </div>
@@ -239,15 +232,17 @@ export default function AuditPage() {
                                         {issue.codeSuggestion}
                                       </SyntaxHighlighter>
                                     ) : (
-                                      <pre style={{ 
-                                        padding: '1rem', 
-                                        background: '#1e1e1e', 
-                                        color: '#d4d4d4', 
-                                        borderRadius: '0.375rem',
-                                        marginTop: '0.5rem',
-                                        fontSize: '0.875rem',
-                                        overflow: 'auto'
-                                      }}>
+                                      <pre
+                                        style={{
+                                          padding: '1rem',
+                                          background: '#1e1e1e',
+                                          color: '#d4d4d4',
+                                          borderRadius: '0.375rem',
+                                          marginTop: '0.5rem',
+                                          fontSize: '0.875rem',
+                                          overflow: 'auto',
+                                        }}
+                                      >
                                         {issue.codeSuggestion}
                                       </pre>
                                     )}
@@ -256,7 +251,7 @@ export default function AuditPage() {
                               </div>
                             )}
                           </div>
-                        )
+                        );
                       })}
                     </div>
                   ))}
@@ -266,6 +261,5 @@ export default function AuditPage() {
         )}
       </div>
     </main>
-  )
+  );
 }
-

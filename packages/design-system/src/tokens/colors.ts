@@ -17,7 +17,7 @@ export const colors = {
     800: '#075985',
     900: '#0c4a6e',
   },
-  
+
   // Neutral grays
   neutral: {
     50: '#fafafa',
@@ -31,7 +31,7 @@ export const colors = {
     800: '#262626', // Meets 4.5:1 on white
     900: '#171717', // Meets 4.5:1 on white
   },
-  
+
   // Semantic colors
   success: {
     50: '#f0fdf4',
@@ -43,7 +43,7 @@ export const colors = {
     600: '#16a34a',
     700: '#15803d',
   },
-  
+
   warning: {
     50: '#fffbeb',
     100: '#fef3c7',
@@ -54,7 +54,7 @@ export const colors = {
     600: '#d97706',
     700: '#b45309',
   },
-  
+
   error: {
     50: '#fef2f2',
     100: '#fee2e2',
@@ -65,18 +65,18 @@ export const colors = {
     600: '#dc2626', // Meets 4.5:1 on white
     700: '#b91c1c',
   },
-  
+
   // Base colors
   white: '#ffffff',
   black: '#000000',
-  
+
   // Background colors
   background: {
     default: '#ffffff',
     secondary: '#fafafa',
     tertiary: '#f5f5f5',
   },
-  
+
   // Text colors (meet contrast requirements)
   text: {
     primary: '#171717', // neutral.900 - 4.5:1 on white
@@ -85,14 +85,13 @@ export const colors = {
     inverse: '#ffffff', // white - 4.5:1 on dark backgrounds
     disabled: '#a3a3a3', // neutral.400
   },
-  
+
   // Border colors
   border: {
     default: '#bbbbbb', // neutral.200
     focus: '#0ea5e9', // primary.500
     error: '#ef4444', // error.500
   },
-} as const
+} as const;
 
-export type ColorToken = typeof colors
-
+export type ColorToken = typeof colors;

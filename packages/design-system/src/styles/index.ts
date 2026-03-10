@@ -1,3 +1,2 @@
-export { theme } from '../tokens/theme'
-export type { Theme } from '../tokens/theme'
-
+export { theme } from '../tokens/theme';
+export type { Theme } from '../tokens/theme';

@@ -9,7 +9,7 @@
 /* CSS Custom Properties from design tokens */
 /* Light theme (default) */
 :root,
-[data-theme="light"] {
+[data-theme='light'] {
   /* Colors - Base palette (same for both themes) */
   --color-primary-50: #f0f9ff;
   --color-primary-100: #e0f2fe;
@@ -21,7 +21,7 @@
   --color-primary-700: #0369a1;
   --color-primary-800: #075985;
   --color-primary-900: #0c4a6e;
-  
+
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f5f5f5;
   --color-neutral-200: #e5e5e5;
@@ -32,44 +32,44 @@
   --color-neutral-700: #404040;
   --color-neutral-800: #262626;
   --color-neutral-900: #171717;
-  
+
   --color-success-500: #22c55e;
   --color-success-600: #16a34a;
   --color-success-700: #15803d;
-  
+
   --color-warning-500: #f59e0b;
   --color-warning-600: #d97706;
   --color-warning-700: #b45309;
-  
+
   --color-error-500: #ef4444;
   --color-error-600: #dc2626;
   --color-error-700: #b91c1c;
-  
+
   --color-white: #ffffff;
   --color-black: #000000;
   --color-primary-gray: #171717;
-  
+
   /* Semantic colors - Light theme */
   --color-background-default: #ffffff;
   --color-background-secondary: #fafafa;
   --color-background-tertiary: #f5f5f5;
   --color-background-hover: #f5f5f5;
-  
+
   --color-text-primary: #171717;
   --color-text-secondary: #525252;
   --color-text-tertiary: #737373;
   --color-text-inverse: #ffffff;
   --color-secondary-text-inverse: #525252;
   --color-text-disabled: #a3a3a3;
-  
+
   --color-link: #0369a1;
   --color-link-hover: #075985;
-  
+
   --color-border-default: #767676; /* was #e5e5e5 (1.26:1) — darkened to meet WCAG 1.4.11 3:1 non-text contrast */
   --color-border-hover: #5a5a5a;
   --color-border-focus: #0ea5e9;
   --color-border-error: #ef4444;
-  
+
   /* Spacing */
   --spacing-0: 0;
   --spacing-1: 0.25rem;
@@ -85,11 +85,12 @@
   --spacing-20: 5rem;
   --spacing-24: 6rem;
   --spacing-32: 8rem;
-  
+
   /* Typography */
-  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-family-sans:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-family-mono: Menlo, Monaco, 'Courier New', monospace;
-  
+
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
@@ -99,25 +100,25 @@
   --font-size-3xl: 1.875rem;
   --font-size-4xl: 2.25rem;
   --font-size-5xl: 3rem;
-  
+
   --line-height-none: 1;
   --line-height-tight: 1.25;
   --line-height-snug: 1.375;
   --line-height-normal: 1.5;
   --line-height-relaxed: 1.625;
   --line-height-loose: 2;
-  
+
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
-  
+
   /* Motion */
   --motion-duration-fast: 150ms;
   --motion-duration-normal: 200ms;
   --motion-duration-slow: 300ms;
   --motion-duration-slower: 400ms;
-  
+
   --motion-easing-ease-in: cubic-bezier(0.4, 0, 1, 1);
   --motion-easing-ease-out: cubic-bezier(0, 0, 0.2, 1);
   --motion-easing-ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -125,22 +126,22 @@
 }
 
 /* Dark theme */
-[data-theme="dark"] {
+[data-theme='dark'] {
   /* Semantic colors - Dark theme */
   --color-background-default: #171717;
   --color-background-secondary: #262626;
   --color-background-tertiary: #404040;
   --color-background-hover: #404040;
-  
+
   --color-text-primary: #fafafa;
   --color-text-secondary: #d4d4d4;
   --color-text-tertiary: #a3a3a3;
   --color-text-inverse: #171717;
   --color-text-disabled: #737373;
-  
+
   --color-link: #7dd3fc;
   --color-link-hover: #38bdf8;
-  
+
   --color-border-default: #404040;
   --color-border-hover: #525252;
   --color-border-focus: #38bdf8;
@@ -149,21 +150,21 @@
 
 /* Auto dark mode (respects system preference) */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root:not([data-theme='light']) {
     --color-background-default: #171717;
     --color-background-secondary: #262626;
     --color-background-tertiary: #404040;
     --color-background-hover: #404040;
-    
+
     --color-text-primary: #fafafa;
     --color-text-secondary: #d4d4d4;
     --color-text-tertiary: #a3a3a3;
     --color-text-inverse: #171717;
     --color-text-disabled: #737373;
-    
+
     --color-link: #7dd3fc;
     --color-link-hover: #38bdf8;
-    
+
     --color-border-default: #404040;
     --color-border-hover: #525252;
     --color-border-focus: #38bdf8;
@@ -199,7 +200,12 @@ body {
 
 /* Ensure all text elements inherit theme colors */
 p,
-h1, h2, h3, h4, h5, h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 span,
 div,
 article,
@@ -299,16 +305,16 @@ h6 {
     --color-border-default: #000000;
     --color-border-focus: #0000ff;
   }
-  
+
   * {
     border-color: currentColor;
   }
-  
+
   :focus-visible {
     outline-width: 3px;
     outline-style: solid;
   }
-  
+
   button,
   a,
   input,
@@ -326,49 +332,48 @@ h6 {
     box-shadow: none !important;
     text-shadow: none !important;
   }
-  
+
   a,
   a:visited {
     text-decoration: underline;
   }
-  
+
   a[href]:after {
     content: ' (' attr(href) ')';
   }
-  
+
   abbr[title]:after {
     content: ' (' attr(title) ')';
   }
-  
+
   pre,
   blockquote {
     border: 1px solid #999;
     page-break-inside: avoid;
   }
-  
+
   thead {
     display: table-header-group;
   }
-  
+
   tr,
   img {
     page-break-inside: avoid;
   }
-  
+
   img {
     max-width: 100% !important;
   }
-  
+
   p,
   h2,
   h3 {
     orphans: 3;
     widows: 3;
   }
-  
+
   h2,
   h3 {
     page-break-after: avoid;
   }
 }
-

@@ -12,10 +12,9 @@ const nextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-    }
-    return config
+    };
+    return config;
   },
-}
+};
 
-module.exports = nextConfig
-
+module.exports = nextConfig;

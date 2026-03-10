@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { Button } from '@a11ypros/a11y-ui-components'
+import { Button } from '@a11ypros/a11y-ui-components';
 
 export default function ButtonPage() {
   return (
     <main style={{ padding: '2rem' }}>
       <h1>Button Component</h1>
       <p>Accessible button component with full keyboard support.</p>
-      
+
       <section style={{ marginTop: '2rem' }}>
         <h2>Variants</h2>
         <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -44,6 +44,5 @@ export default function ButtonPage() {
         </ul>
       </section>
     </main>
-  )
+  );
 }
-

@@ -35,9 +35,13 @@
   border: none;
   border-bottom: 2px solid transparent;
   cursor: pointer;
-  transition: color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1)),
-              border-color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1)),
-              background-color var(--motion-duration-normal, 200ms) var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
+  transition:
+    color var(--motion-duration-normal, 200ms)
+      var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1)),
+    border-color var(--motion-duration-normal, 200ms)
+      var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1)),
+    background-color var(--motion-duration-normal, 200ms)
+      var(--motion-easing-ease-out, cubic-bezier(0, 0, 0.2, 1));
   white-space: nowrap;
 }
 
@@ -112,21 +116,20 @@
   .tabs-list {
     border-bottom-width: 2px;
   }
-  
+
   .tabs--vertical .tabs-list {
     border-right-width: 2px;
   }
-  
+
   .tabs-tab--selected {
     border-bottom-width: 3px;
   }
-  
+
   .tabs--vertical .tabs-tab--selected {
     border-left-width: 4px;
   }
-  
+
   .tabs-tab:focus-visible {
     outline-width: 3px;
   }
 }
-

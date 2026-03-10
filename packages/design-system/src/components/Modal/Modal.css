@@ -9,7 +9,9 @@
   color: var(--color-text-primary, #171717);
   border-radius: 0.5rem;
   border: none;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -96,11 +98,11 @@
   .modal::backdrop {
     background-color: rgba(0, 0, 0, 0.8);
   }
-  
+
   .modal {
     border: 2px solid var(--color-text-primary, #171717);
   }
-  
+
   .modal:focus-visible {
     outline-width: 3px;
   }
@@ -111,9 +113,8 @@
   .modal {
     animation: none;
   }
-  
+
   .modal::backdrop {
     animation: none;
   }
 }
-

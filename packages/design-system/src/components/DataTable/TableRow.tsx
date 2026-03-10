@@ -1,61 +1,61 @@
-'use client'
+'use client';
 
-import React from 'react'
-import { Checkbox } from '../Form/Checkbox'
-import { DataTableColumn } from './DataTable'
+import React from 'react';
+import { Checkbox } from '../Form/Checkbox';
+import { DataTableColumn } from './DataTable';
 
 export interface TableRowProps<T> {
   /**
    * Row data
    */
-  row: T
-  
+  row: T;
+
   /**
    * Unique ID for the row
    */
-  rowId: string
-  
+  rowId: string;
+
   /**
    * Row index
    */
-  index: number
-  
+  index: number;
+
   /**
    * Column definitions
    */
-  columns: DataTableColumn<T>[]
-  
+  columns: DataTableColumn<T>[];
+
   /**
    * Whether the table has selectable rows
    */
-  selectable?: boolean
-  
+  selectable?: boolean;
+
   /**
    * Whether this row is selected
    */
-  isSelected: boolean
-  
+  isSelected: boolean;
+
   /**
    * Callback when row selection changes
    */
-  onSelectRow: (rowId: string) => void
-  
+  onSelectRow: (rowId: string) => void;
+
   /**
    * Ref callback for the row element
    */
-  rowRef?: (element: HTMLTableRowElement | null) => void
-  
+  rowRef?: (element: HTMLTableRowElement | null) => void;
+
   /**
    * Custom class name
    */
-  className?: string
+  className?: string;
 }
 
 /**
  * DataTable row component
- * 
+ *
  * Renders a single table row with optional selection checkbox and custom cell rendering.
- * 
+ *
  * @example
  * ```tsx
  * <TableRow
@@ -80,8 +80,6 @@ export function TableRow<T extends Record<string, any>>({
   rowRef,
   className = '',
 }: TableRowProps<T>) {
-
-
   return (
     <tr
       ref={rowRef}
@@ -89,7 +87,7 @@ export function TableRow<T extends Record<string, any>>({
       aria-selected={selectable ? isSelected : undefined}
       onClick={() => {
         if (selectable) {
-          onSelectRow(rowId)
+          onSelectRow(rowId);
         }
       }}
     >
@@ -109,5 +107,5 @@ export function TableRow<T extends Record<string, any>>({
         </td>
       ))}
     </tr>
-  )
+  );
 }

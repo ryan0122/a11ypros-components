@@ -5,19 +5,23 @@ This guide covers deploying the component library and Storybook to Netlify at `u
 ## What's Configured
 
 ✅ **Netlify Configuration** (`netlify.toml`)
+
 - Builds Storybook and Next.js app
 - Serves Storybook at `/storybook`
 - Routes API calls to Netlify Functions
 
 ✅ **Next.js Static Export**
+
 - Configured for static site generation
 - Outputs to `apps/web/out`
 
 ✅ **Storybook Build**
+
 - Builds to `apps/web/public/storybook-static`
 - Accessible at `ui.a11ypros.com/storybook`
 
 ✅ **Netlify Function**
+
 - Audit API converted to serverless function
 - Located at `netlify/functions/audit.ts`
 - Accessible via `/api/audit` (auto-redirected)
@@ -33,6 +37,7 @@ This guide covers deploying the component library and Storybook to Netlify at `u
 ### 2. Configure Build Settings
 
 Netlify should auto-detect `netlify.toml`, but verify:
+
 - **Base directory:** `.` (root)
 - **Build command:** `npm install && npm run build-storybook && npm run build --workspace=apps/web`
 - **Publish directory:** `apps/web/out`
@@ -40,6 +45,7 @@ Netlify should auto-detect `netlify.toml`, but verify:
 ### 3. Set Environment Variables
 
 Go to **Site settings → Environment variables** and add:
+
 - `ANTHROPIC_API_KEY` - Your Anthropic API key for the audit function
 
 ### 4. Configure Custom Domain
@@ -151,4 +157,3 @@ Visit `http://localhost:3000` for the app and `http://localhost:3000/storybook` 
 - API routes are converted to Netlify Functions
 - Storybook is served as static files alongside the app
 - All routes are client-side (SPA mode)
-

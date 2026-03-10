@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { useState } from 'react'
-import { Select } from './Select'
+import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
+import { Select } from './Select';
 
 /**
  * # Select Component
- * 
+ *
  * An accessible select dropdown component with proper label association, error handling,
  * and ARIA attributes. Supports keyboard navigation and screen reader announcements.
- * 
+ *
  * ## Usage
- * 
+ *
  * ```tsx
  * import { Select } from '@a11ypros/a11y-ui-components'
- * 
+ *
  * function MyComponent() {
  *   const [value, setValue] = useState('')
- *   
+ *
  *   return (
  *     <Select
  *       label="Country"
@@ -30,26 +30,26 @@ import { Select } from './Select'
  *   )
  * }
  * ```
- * 
+ *
  * ## Features
- * 
+ *
  * - **Label association**: Labels are properly associated with selects using \`htmlFor\` and \`id\`
  * - **Error handling**: Error messages are announced to screen readers via ARIA
  * - **Helper text**: Optional helper text for additional context
  * - **Placeholder option**: Optional placeholder text for the first option
  * - **Keyboard navigation**: Arrow keys navigate options, Enter selects
- * 
+ *
  * ## Accessibility
- * 
+ *
  * ### WCAG 2.1/2.2 Compliance
- * 
+ *
  * - **1.3.1 Info and Relationships**: Proper label-select association via \`htmlFor\` and \`id\`
  * - **2.1.1 Keyboard**: Full keyboard navigation with arrow keys and Enter
  * - **2.5.3 Label in Name**: Label text matches accessible name
  * - **4.1.2 Name, Role, Value**: Proper ARIA attributes including \`aria-required\`, \`aria-invalid\`, \`aria-describedby\`
- * 
+ *
  * ### Keyboard Interactions
- * 
+ *
  * | Key | Action |
  * |-----|--------|
  * | **Tab** | Moves focus to the select |
@@ -61,39 +61,39 @@ import { Select } from './Select'
  * | **Escape** | Close dropdown |
  * | **Home** | Move to first option |
  * | **End** | Move to last option |
- * 
+ *
  * ### Screen Reader Support
- * 
+ *
  * - Select role and label are announced when focused
  * - Selected option value is announced
  * - Required state is announced ("required")
  * - Error messages are announced when present
  * - Helper text is announced via \`aria-describedby\`
  * - Placeholder option is announced appropriately
- * 
+ *
  * ### Focus Management
- * 
+ *
  * - Focus indicators use 2px solid outline with 2px offset
  * - Focus styles respect \`prefers-reduced-motion\` media query
  * - Error state has distinct focus styling
  * - Focus visible only on keyboard navigation using \`:focus-visible\`
- * 
+ *
  * ## Best Practices
- * 
+ *
  * - **Always provide a label**: Required for accessibility and usability
  * - **Use for 5+ options**: Select is ideal for longer lists (use Radio for 2-4 options)
  * - **Provide helpful error messages**: Be specific about what needs to be selected
  * - **Use placeholder for guidance**: Help users understand what to select
  * - **Group related options**: Use optgroups for logical grouping when appropriate
- * 
+ *
  * ## Common Pitfalls
- * 
+ *
  * - Missing label (screen readers can't identify the select)
  * - Using select for 2-3 options (use Radio buttons instead)
  * - Vague error messages (be specific about validation failures)
  * - Not providing a placeholder (users don't know what to select)
  * - Too many options without grouping (becomes hard to navigate)
- * 
+ *
  * @component
  * @example
  * ```tsx
@@ -117,13 +117,13 @@ const meta: Meta<typeof Select> = {
       description: 'Custom class name for the select',
       table: {
         type: { summary: 'string' },
-      }
+      },
     },
   },
-}
+};
 
-export default meta
-type Story = StoryObj<typeof Select>
+export default meta;
+type Story = StoryObj<typeof Select>;
 
 /**
  * Standard select dropdown with multiple options. The label is properly associated
@@ -131,7 +131,7 @@ type Story = StoryObj<typeof Select>
  */
 export const Default: Story = {
   render: () => {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
     return (
       <Select
         id="select-default"
@@ -145,9 +145,9 @@ export const Default: Story = {
           { value: 'au', label: 'Australia' },
         ]}
       />
-    )
+    );
   },
-}
+};
 
 /**
  * Select with placeholder option. The placeholder helps users understand
@@ -155,7 +155,7 @@ export const Default: Story = {
  */
 export const WithPlaceholder: Story = {
   render: () => {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
     return (
       <Select
         id="select-placeholder"
@@ -169,9 +169,9 @@ export const WithPlaceholder: Story = {
           { value: 'bank', label: 'Bank Transfer' },
         ]}
       />
-    )
+    );
   },
-}
+};
 
 /**
  * Select with error message. Error messages are announced to screen readers
@@ -180,7 +180,7 @@ export const WithPlaceholder: Story = {
  */
 export const WithError: Story = {
   render: () => {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
     return (
       <Select
         id="select-error"
@@ -194,9 +194,9 @@ export const WithError: Story = {
           { value: 'uk', label: 'United Kingdom' },
         ]}
       />
-    )
+    );
   },
-}
+};
 
 /**
  * Select with helper text. Helper text provides additional context or guidance
@@ -204,7 +204,7 @@ export const WithError: Story = {
  */
 export const WithHelperText: Story = {
   render: () => {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
     return (
       <Select
         id="select-helper"
@@ -218,9 +218,9 @@ export const WithHelperText: Story = {
           { value: 'overnight', label: 'Overnight ($25)' },
         ]}
       />
-    )
+    );
   },
-}
+};
 
 /**
  * Required select field. Required selects are marked with \`aria-required="true"\`
@@ -228,7 +228,7 @@ export const WithHelperText: Story = {
  */
 export const Required: Story = {
   render: () => {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
     return (
       <Select
         id="select-required"
@@ -243,9 +243,9 @@ export const Required: Story = {
           { value: 'tx', label: 'Texas' },
         ]}
       />
-    )
+    );
   },
-}
+};
 
 /**
  * Disabled select that cannot be changed. Disabled selects are announced as
@@ -262,7 +262,7 @@ export const Disabled: Story = {
       { value: 'option2', label: 'Option 2' },
     ],
   },
-}
+};
 
 /**
  * Select with many options. For long lists, consider grouping related options
@@ -270,7 +270,7 @@ export const Disabled: Story = {
  */
 export const ManyOptions: Story = {
   render: () => {
-    const [value, setValue] = useState('')
+    const [value, setValue] = useState('');
     return (
       <Select
         id="select-many"
@@ -291,14 +291,14 @@ export const ManyOptions: Story = {
           { value: 'sj', label: 'San Jose' },
         ]}
       />
-    )
+    );
   },
   parameters: {
     docs: {
       description: {
-        story: 'Select with many options. For very long lists (20+ options), consider using a searchable select or grouping options.',
+        story:
+          'Select with many options. For very long lists (20+ options), consider using a searchable select or grouping options.',
       },
     },
   },
-}
-
+};

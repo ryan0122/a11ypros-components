@@ -1,72 +1,72 @@
-'use client'
+'use client';
 
-import React, { useEffect, useRef } from 'react'
-import { useFocusReturn } from '../../hooks/useFocusReturn'
-import { Button } from '../Button/Button'
-import './Modal.css'
+import React, { useEffect, useRef } from 'react';
+import { useFocusReturn } from '../../hooks/useFocusReturn';
+import { Button } from '../Button/Button';
+import './Modal.css';
 
 export interface ModalProps {
   /**
    * Whether the modal is open
    */
-  isOpen: boolean
-  
+  isOpen: boolean;
+
   /**
    * Callback when modal should close
    */
-  onClose: () => void
-  
+  onClose: () => void;
+
   /**
    * Title of the modal (required for accessibility)
    */
-  title: string
-  
+  title: string;
+
   /**
    * Content of the modal
    */
-  children: React.ReactNode
-  
+  children: React.ReactNode;
+
   /**
    * Whether to close on backdrop click
    */
-  closeOnBackdropClick?: boolean
-  
+  closeOnBackdropClick?: boolean;
+
   /**
    * Whether to close on ESC key press
    */
-  closeOnEscape?: boolean
-  
+  closeOnEscape?: boolean;
+
   /**
    * Size of the modal
    */
-  size?: 'sm' | 'md' | 'lg' | 'full'
-  
+  size?: 'sm' | 'md' | 'lg' | 'full';
+
   /**
    * Element to return focus to when modal closes
    */
-  returnFocusTo?: HTMLElement | null
-  
+  returnFocusTo?: HTMLElement | null;
+
   /**
    * Custom class name
    */
-  className?: string
+  className?: string;
 }
 
 /**
  * Accessible Modal component using HTML5 dialog element
- * 
+ *
  * Uses the native `<dialog>` element which provides:
  * - Built-in focus management and focus trapping
  * - Automatic body scroll prevention
  * - Native backdrop overlay
  * - ESC key handling (configurable)
- * 
+ *
  * WCAG Compliance:
  * - 2.1.1 Keyboard: ESC key support, built-in focus trap
  * - 2.1.2 No Keyboard Trap: Focus returns to trigger
  * - 2.4.3 Focus Order: Focus trapped within modal (native behavior)
  * - 4.1.2 Name, Role, Value: ARIA modal pattern
- * 
+ *
  * @example
  * ```tsx
  * <Modal
@@ -89,16 +89,16 @@ export const Modal: React.FC<ModalProps> = ({
   returnFocusTo,
   className = '',
 }) => {
-  const dialogRef = useRef<HTMLDialogElement>(null)
-  const titleId = React.useId()
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const titleId = React.useId();
 
   // Return focus on close
-  useFocusReturn(isOpen, returnFocusTo)
+  useFocusReturn(isOpen, returnFocusTo);
 
   // Handle dialog open/close
   useEffect(() => {
-    const dialog = dialogRef.current
-    if (!dialog) return
+    const dialog = dialogRef.current;
+    if (!dialog) return;
 
     if (isOpen) {
       // Show modal dialog
@@ -113,28 +113,27 @@ export const Modal: React.FC<ModalProps> = ({
       if (dialog.open) {
         dialog.close();
       }
+    };
+  }, [isOpen]);
+
+  const handleDialogClick = (event: React.MouseEvent<HTMLDialogElement>) => {
+    if (!closeOnBackdropClick) return;
+
+    // If click target is the dialog itself (backdrop), not content inside it
+    if (event.target === event.currentTarget) {
+      onClose();
     }
-  }, [isOpen])
-
-
-    const handleDialogClick = (event: React.MouseEvent<HTMLDialogElement>) => {
-     if (!closeOnBackdropClick) return
-  
-  // If click target is the dialog itself (backdrop), not content inside it
-  if (event.target === event.currentTarget) {
-    onClose()
-  }
   };
 
   // Handle cancel event (fires when ESC key is pressed)
   const handleCancel = (event: React.SyntheticEvent<HTMLDialogElement>) => {
     // Prevent default close behavior
-    event.preventDefault()
+    event.preventDefault();
     // Only close if closeOnEscape is enabled
     if (closeOnEscape) {
       onClose();
     }
-  }
+  };
 
   return (
     <dialog
@@ -142,7 +141,7 @@ export const Modal: React.FC<ModalProps> = ({
       className={`modal modal--${size} ${isOpen ? 'modal--open' : ''} ${className}`.trim()}
       aria-labelledby={titleId}
       onCancel={handleCancel}
-       onClick={handleDialogClick}
+      onClick={handleDialogClick}
     >
       <div className="modal-content-wrapper">
         <div className="modal-header">
@@ -159,13 +158,10 @@ export const Modal: React.FC<ModalProps> = ({
             <span aria-hidden="true">×</span>
           </Button>
         </div>
-        <div className="modal-content">
-          {children}
-        </div>
+        <div className="modal-content">{children}</div>
       </div>
     </dialog>
-  )
-}
+  );
+};
 
-Modal.displayName = 'Modal'
-
+Modal.displayName = 'Modal';

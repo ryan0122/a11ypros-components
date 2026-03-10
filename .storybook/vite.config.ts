@@ -1,10 +1,10 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   base: '/storybook-static/',
   define: {
     'process.env': {},
-    'process': {
+    process: {
       env: {},
     },
   },
@@ -20,5 +20,4 @@ export default defineConfig({
   resolve: {
     preserveSymlinks: false,
   },
-})
-
+});

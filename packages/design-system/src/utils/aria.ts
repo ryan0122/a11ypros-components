@@ -6,9 +6,9 @@
 /**
  * Generate a unique ID for ARIA attributes
  */
-let idCounter = 0
+let idCounter = 0;
 export function generateId(prefix = 'id'): string {
-  return `${prefix}-${++idCounter}`
+  return `${prefix}-${++idCounter}`;
 }
 
 /**
@@ -19,81 +19,78 @@ export function getAriaLabel(
   ariaLabelledBy?: string
 ): { 'aria-label'?: string; 'aria-labelledby'?: string } {
   if (ariaLabel) {
-    return { 'aria-label': ariaLabel }
+    return { 'aria-label': ariaLabel };
   }
   if (ariaLabelledBy) {
-    return { 'aria-labelledby': ariaLabelledBy }
+    return { 'aria-labelledby': ariaLabelledBy };
   }
-  return {}
+  return {};
 }
 
 /**
  * Get ARIA describedby attributes
  */
-export function getAriaDescribedBy(
-  describedBy?: string
-): { 'aria-describedby'?: string } {
+export function getAriaDescribedBy(describedBy?: string): { 'aria-describedby'?: string } {
   if (describedBy) {
-    return { 'aria-describedby': describedBy }
+    return { 'aria-describedby': describedBy };
   }
-  return {}
+  return {};
 }
 
 /**
  * Combine multiple ARIA describedby IDs
  */
 export function combineAriaDescribedBy(...ids: (string | undefined)[]): string | undefined {
-  const validIds = ids.filter((id): id is string => Boolean(id))
-  return validIds.length > 0 ? validIds.join(' ') : undefined
+  const validIds = ids.filter((id): id is string => Boolean(id));
+  return validIds.length > 0 ? validIds.join(' ') : undefined;
 }
 
 /**
  * Get live region attributes
  */
-export function getLiveRegionAttributes(
-  live: 'polite' | 'assertive' | 'off' = 'polite'
-): { 'aria-live': 'polite' | 'assertive' | 'off'; 'aria-atomic'?: boolean } {
+export function getLiveRegionAttributes(live: 'polite' | 'assertive' | 'off' = 'polite'): {
+  'aria-live': 'polite' | 'assertive' | 'off';
+  'aria-atomic'?: boolean;
+} {
   return {
     'aria-live': live,
     'aria-atomic': live !== 'off',
-  }
+  };
 }
 
 /**
  * Get busy state attributes
  */
 export function getBusyAttributes(busy: boolean): { 'aria-busy': boolean } {
-  return { 'aria-busy': busy }
+  return { 'aria-busy': busy };
 }
 
 /**
  * Get expanded state attributes
  */
-export function getExpandedAttributes(
-  expanded: boolean | undefined
-): { 'aria-expanded'?: boolean } {
-  if (expanded === undefined) return {}
-  return { 'aria-expanded': expanded }
+export function getExpandedAttributes(expanded: boolean | undefined): {
+  'aria-expanded'?: boolean;
+} {
+  if (expanded === undefined) return {};
+  return { 'aria-expanded': expanded };
 }
 
 /**
  * Get pressed state attributes (for toggle buttons)
  */
-export function getPressedAttributes(
-  pressed: boolean | undefined
-): { 'aria-pressed'?: boolean } {
-  if (pressed === undefined) return {}
-  return { 'aria-pressed': pressed }
+export function getPressedAttributes(pressed: boolean | undefined): { 'aria-pressed'?: boolean } {
+  if (pressed === undefined) return {};
+  return { 'aria-pressed': pressed };
 }
 
 /**
  * Get selected state attributes
  */
-export function getSelectedAttributes(
-  selected: boolean | undefined
-): { 'aria-selected'?: boolean } {
-  if (selected === undefined) return {}
-  return { 'aria-selected': selected }
+export function getSelectedAttributes(selected: boolean | undefined): {
+  'aria-selected'?: boolean;
+} {
+  if (selected === undefined) return {};
+  return { 'aria-selected': selected };
 }
 
 /**
@@ -102,7 +99,6 @@ export function getSelectedAttributes(
 export function getCurrentAttributes(
   current: boolean | 'page' | 'step' | 'location' | 'date' | 'time' | undefined
 ): { 'aria-current'?: boolean | 'page' | 'step' | 'location' | 'date' | 'time' } {
-  if (current === undefined) return {}
-  return { 'aria-current': current }
+  if (current === undefined) return {};
+  return { 'aria-current': current };
 }
-

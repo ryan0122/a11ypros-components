@@ -1,44 +1,44 @@
-'use client'
+'use client';
 
-import React from 'react'
-import { combineAriaDescribedBy } from '../../utils/aria'
-import './Textarea.css'
+import React from 'react';
+import { combineAriaDescribedBy } from '../../utils/aria';
+import './Textarea.css';
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   /**
    * Error message to display
    */
-  error?: string
-  
+  error?: string;
+
   /**
    * Helper text to display below the textarea
    */
-  helperText?: string
-  
+  helperText?: string;
+
   /**
    * Label for the textarea
    */
-  label?: string
-  
+  label?: string;
+
   /**
    * Maximum character count (shows counter)
    */
-  maxLength?: number
-  
+  maxLength?: number;
+
   /**
    * Whether to show character count
    */
-  showCount?: boolean
+  showCount?: boolean;
 }
 
 /**
  * Accessible Textarea component
- * 
+ *
  * WCAG Compliance:
  * - 1.3.1 Info and Relationships: Proper label-textarea association
  * - 4.1.2 Name, Role, Value: Proper ARIA attributes
  * - 4.1.3 Status Messages: Error messages announced
- * 
+ *
  * @example
  * ```tsx
  * <Textarea
@@ -65,21 +65,16 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     },
     ref
   ) => {
-    const textareaId = React.useId()
-    const finalId = id || `textarea-${textareaId}`
-    const errorId = error ? `${finalId}-error` : undefined
-    const helperId = helperText ? `${finalId}-helper` : undefined
-    const countId = showCount ? `${finalId}-count` : undefined
+    const textareaId = React.useId();
+    const finalId = id || `textarea-${textareaId}`;
+    const errorId = error ? `${finalId}-error` : undefined;
+    const helperId = helperText ? `${finalId}-helper` : undefined;
+    const countId = showCount ? `${finalId}-count` : undefined;
 
-    const describedBy = combineAriaDescribedBy(
-      ariaDescribedBy,
-      errorId,
-      helperId,
-      countId
-    )
+    const describedBy = combineAriaDescribedBy(ariaDescribedBy, errorId, helperId, countId);
 
-    const currentLength = typeof value === 'string' ? value.length : 0
-    const remainingChars = maxLength ? maxLength - currentLength : undefined
+    const currentLength = typeof value === 'string' ? value.length : 0;
+    const remainingChars = maxLength ? maxLength - currentLength : undefined;
 
     const classes = [
       'form-textarea',
@@ -88,7 +83,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       className,
     ]
       .filter(Boolean)
-      .join(' ')
+      .join(' ');
 
     return (
       <div className="form-textarea-wrapper">
@@ -97,7 +92,8 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             {label}
             {props.required && (
               <span className="form-label__required" aria-hidden="true">
-                {' '}*
+                {' '}
+                *
               </span>
             )}
           </label>
@@ -126,20 +122,15 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
               </span>
             )}
             {showCount && maxLength && (
-              <span
-                id={countId}
-                className="form-character-count"
-                aria-live="polite"
-              >
+              <span id={countId} className="form-character-count" aria-live="polite">
                 {currentLength} / {maxLength}
               </span>
             )}
           </div>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-Textarea.displayName = 'Textarea'
-
+Textarea.displayName = 'Textarea';
