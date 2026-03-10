@@ -1,12 +1,7 @@
 'use client';
 
 import React, { useState, useCallback, useRef } from 'react';
-import { createArrowKeyHandler, isNavigationKey, isArrowKey } from '../../utils/keyboard';
-import {
-  getExpandedAttributes,
-  getSelectedAttributes,
-  getCurrentAttributes,
-} from '../../utils/aria';
+import { isNavigationKey, isArrowKey } from '../../utils/keyboard';
 import './Tabs.css';
 
 export interface TabItem {
@@ -16,7 +11,7 @@ export interface TabItem {
   disabled?: boolean;
 }
 
-export interface TabsProps {
+interface BaseTabsProps {
   /**
    * Tab items
    */
@@ -51,16 +46,26 @@ export interface TabsProps {
   activationMode?: 'automatic' | 'manual';
 
   /**
-   * Label for the tab list (required for accessibility)
-   */
-  'aria-label'?: string;
-  'aria-labelledby'?: string;
-
-  /**
    * Custom class name
    */
   className?: string;
 }
+
+export type TabsProps =
+  | (BaseTabsProps & {
+      /**
+       * Label for the tab list (required for accessibility)
+       */
+      'aria-label': string;
+      'aria-labelledby'?: never;
+    })
+  | (BaseTabsProps & {
+      /**
+       * Label for the tab list (required for accessibility)
+       */
+      'aria-label'?: never;
+      'aria-labelledby': string;
+    });
 
 /**
  * Accessible Tabs component
@@ -231,7 +236,6 @@ export const Tabs: React.FC<TabsProps> = ({
               onClick={() => !item.disabled && handleSelect(item.id)}
               onKeyDown={(e) => handleKeyDown(e, index)}
               onFocus={() => setFocusedId(item.id)}
-              {...getCurrentAttributes(isSelected ? 'page' : undefined)}
             >
               {item.label}
             </button>
@@ -244,6 +248,7 @@ export const Tabs: React.FC<TabsProps> = ({
           role="tabpanel"
           aria-labelledby={`tab-${selectedTab.id}`}
           className="tabs-panel"
+          tabIndex={0}
         >
           {selectedTab.content}
         </div>
