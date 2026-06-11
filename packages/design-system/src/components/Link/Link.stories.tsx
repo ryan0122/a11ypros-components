@@ -133,4 +133,8 @@ export const SkipLink: Story = {
     skip: true,
     children: 'Skip to main content',
   },
+  play: async ({ canvasElement }) => {
+    const link = canvasElement.querySelector<HTMLElement>('a, button');
+    link?.focus();
+  },
 };
